@@ -1,12 +1,21 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+      <ItemList/>
   </div>
 </template>
+
+<script>
+    // @ is an alias to /src
+    import ItemList from '@/components/ItemList.vue'
+    import Item from '@/components/Item.vue'
+    
+    export default {
+      name: 'App',
+      components: {
+        ItemList
+      }
+  }
+    </script>
 
 <style lang="scss">
 #app {
@@ -19,7 +28,7 @@
 #nav {
   padding: 30px;
   a {
-    font-weight: bold;
+    font-weight: 100;
     color: #2c3e50;
     &.router-link-exact-active {
       color: #42b983;
