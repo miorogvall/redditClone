@@ -25,7 +25,6 @@ export default {
   <style scoped lang="scss">
 .item-list {
     div {
-        color:red;
     }
 }
   </style>
