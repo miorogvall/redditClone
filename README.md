@@ -1,2 +1,2 @@
 # redditClone
-reddit clone for viewing subreddits
+This is a reddit clone for viewing subreddits built in Vue
