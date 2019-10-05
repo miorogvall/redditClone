@@ -1,11 +1,10 @@
 <template>
     <div class="item-list">
       <h1>this is the item list</h1>
-      <Item title="this is the title"/>
+      <Item v-for="post in posts" :title="post.data.author"/>
     </div>
 </template>
   <script>
-
 
 import Item from '@/components/Item.vue'
 
@@ -13,6 +12,11 @@ export default {
   name: 'ItemList',
   components: {
     Item
+  },
+  props: ['posts'],
+  created: function () {
+    console.log('user data from parent component:')
+    console.log(this.posts) //prints out an empty string
   }
 }
   </script>

@@ -1,10 +1,6 @@
 <template>
   <div id="app">
-      <ItemList/>
-      <ul>
-        <li v-for="post in posts">{{post.data.author}}</li>
-
-      </ul>
+      <ItemList :posts="posts"/>
   </div>
 </template>
 
@@ -26,7 +22,7 @@
     axios
       .get('https://www.reddit.com/r/aww.json?limit=10')
       .then(response => {
-        this.posts = response.data.data.children;
+        this.posts = response.data.data.children
       })
     }
 }
