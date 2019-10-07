@@ -46,7 +46,7 @@
 
   $black-color: #272727;
   $white: #fdfdfd;
-  $main-color: #17f985;
+  $main-color: #ffc5a1;
   $secondary-color: #37003c;
 
 html, body {
@@ -79,12 +79,15 @@ p, h1, h2, h3, h4, h5, h6 {
     align-items: center;
     justify-content: center;
     padding: 0 15px;
-    transition: background 0.2s ease;
+    transition: background 0.4s ease;
+    color: $secondary-color;
+    background: $white;
+    
 
     &:hover {
-      background: $black-color;
+      background: $secondary-color;
+      color: $main-color;
       cursor: pointer;
-      color: $white;
     }
 
     .pagination-icon {

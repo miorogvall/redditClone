@@ -27,10 +27,10 @@
     props: {
       title: String,
       thumbnail: String,
-      created: String,
-      commentNumber: String,
+      created: Number,
+      commentNumber: Number,
       author:String,
-      score:String,
+      score:Number,
       permalink:String,
     },
     computed: {
@@ -51,8 +51,13 @@
                 let format = upvotes
                 return format
             } else if(upvoteString.length >= 4) {
-                let format = `${upvoteString.substring(0,2)}.${upvoteString.substring(3,4)}k`
-                return format
+                if(upvoteString.substring(3,4) === "0") {
+                    let format = `${upvoteString.substring(0,2)}k`
+                    return format
+                } else {
+                    let format = `${upvoteString.substring(0,2)}.${upvoteString.substring(3,4)}k`
+                    return format
+                }
             }
 
 
@@ -66,7 +71,7 @@
 
   $black-color: #272727;
   $white: #fdfdfd;
-  $main-color: #17f985;
+  $main-color: #ffc5a1;
   $secondary-color: #37003c;
 
 .item {
