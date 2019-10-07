@@ -1,6 +1,24 @@
 <template>
     <div class="item">
-      <h1>{{title}}</h1>
+        <div class="image-div">
+            <img class="item-image" v-bind:src="replaceURLParts">
+        </div>
+        <div>
+            <div class="item-title">
+                <h1>
+                    <span>{{this.title}}</span>
+                </h1>
+            </div>
+            <div class="item-upvotes">
+                <h1>
+                    <span>{{shortenUpvotesFormat}} updoots</span>
+                </h1>
+
+            </div>
+            <div class="item-info">
+                <div class="item-author">posted by <span class="author">{{this.author}}</span> at <span class="author">{{convertFromUnix}}</span> with <span class="author">{{this.commentNumber}} comments</span></div>
+            </div>
+        </div>
     </div>
 </template>
   <script>
@@ -9,20 +27,148 @@
     props: {
       title: String,
       thumbnail: String,
-      created: String ,
+      created: String,
       commentNumber: String,
       author:String,
       score:String,
       permalink:String,
+    },
+    computed: {
+        replaceURLParts( ) {
+            let decodedThumbnail = this.thumbnail.replace(/&amp;/g, '&')
+            return decodedThumbnail
+        },
+        convertFromUnix() {
+            let options = {year: 'numeric', month: '2-digit', day: '2-digit', hour: 'numeric', minute: 'numeric' };
+            let timestamp = new Date(this.created*1000).toLocaleDateString('SE-se', options).replace(/\//g, '-');
+            return timestamp
+        },
+        shortenUpvotesFormat () {
+            let upvotes = this.score
+            let upvoteString = upvotes.toString()
+
+            if(upvoteString.length < 4) {
+                let format = upvotes
+                return format
+            } else if(upvoteString.length >= 4) {
+                let format = `${upvoteString.substring(0,2)}.${upvoteString.substring(3,4)}k`
+                return format
+            }
+
+
+        }
     }
   }
-  </script>
+</script>
 
   <!-- Add "scoped" attribute to limit CSS to this component only -->
   <style scoped lang="scss">
+
+  $black-color: #272727;
+  $white: #fdfdfd;
+  $main-color: #17f985;
+  $secondary-color: #37003c;
+
 .item {
-    div {
-        color:white;
+    width: 800px;
+    margin: auto;
+    display: flex;
+    margin-bottom: 50px;
+    margin-top: 40px;
+    transition: all 0.1s ease;
+    cursor: pointer;
+    position: relative;
+
+    &:hover {
+        -webkit-transform: scale(0.93);
+        -ms-transform: scale(0.93);
+        transform: scale(0.93);
+        opacity: 0.75;
+    }
+
+    .image-div {
+        width: 250px;
+        height: 170px;
+
+        .item-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    }
+
+    .item-title {
+        width: 550px;
+        margin-top: 5px;
+        margin-left: -25px;
+        max-height: 86px;
+        overflow: hidden;
+        padding-left: 10px;
+
+        h1 {
+            text-align: left;
+
+            span {
+                color: $secondary-color;
+                background-color: $main-color;
+                font-family: "Montserrat";
+                text-transform: capitalize;
+                font-style: italic;
+                font-size: 20px;
+                line-height: 2;
+                padding: 5px 0px;
+                display: inline;
+                box-shadow: 10px 0 0 $main-color, -10px 0 0 $main-color;
+            }
+        }
+    }
+
+    .item-upvotes {
+        width: 550px;
+        margin-top: -6px;
+        margin-left: -25px;
+        max-height: 39px;
+        overflow: hidden;
+        padding-left: 10px;
+
+        h1 {
+            text-align: left;
+
+            span {
+                color: $main-color;
+                background-color: $secondary-color;
+                font-family: "Montserrat";
+                text-transform: capitalize;
+                font-style: italic;
+                font-size: 11px;
+                line-height: 2;
+                padding: 5px 0px;
+                display: inline;
+                box-shadow: 10px 0 0 $secondary-color, -10px 0 0 $secondary-color;
+                font-weight: 600;
+            }
+        }
+    }
+
+    .item-author {
+        text-align: left;
+        margin-top: 10px;
+        font-size: 12px;
+        margin-left: 30px;
+        font-weight: 600;
+        color: $secondary-color;
+        
+
+        span {
+            border-bottom: 2px solid $main-color;
+        }
+    }
+
+    .item-info {
+        position: absolute;
+        bottom: 0;
+        left: 250px;
     }
 }
-  </style>
+</style>

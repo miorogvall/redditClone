@@ -45,30 +45,32 @@
   }
 
   $black-color: #272727;
-  $white: white;
+  $white: #fdfdfd;
+  $main-color: #17f985;
+  $secondary-color: #37003c;
 
 html, body {
   min-height: 100vh;
   padding: 0;
   margin: 0;
   color: $black-color;
-}
+  font-family: "Montserrat";
+  }
 
-p {
+p, h1, h2, h3, h4, h5, h6 {
   padding:0;
   margin: 0;
 }
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   display: flex;
   flex-direction: row;
+  background: $white;
 
   #previous, #next {
     height: 100vh;
-    background: whitesmoke;
     width: 10%;
     max-width: 200px;
     min-width: 120px;

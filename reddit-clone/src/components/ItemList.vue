@@ -1,7 +1,15 @@
 <template>
     <div class="item-list">
-      <h1>this is the item list</h1>
-      <Item v-for="post in posts" :title="post.data.author"/>
+      <Item
+        v-for="post in posts"
+        v-bind:key="post.id"
+        :thumbnail="post.data.preview.images[0].source.url"
+        :title="post.data.title"
+        :commentNumber="post.data.num_comments"
+        :author="post.data.author"
+        :score="post.data.score"
+        :permalink="post.data.permalink"
+        :created="post.data.created_utc"/>
     </div>
 </template>
   <script>
@@ -14,17 +22,12 @@ export default {
     Item
   },
   props: ['posts'],
-  created: function () {
-    console.log('user data from parent component:')
-    console.log(this.posts) //prints out an empty string
-  }
 }
   </script>
 
   <!-- Add "scoped" attribute to limit CSS to this component only -->
   <style scoped lang="scss">
 .item-list {
-    div {
-    }
+    padding: 50px 20px;
 }
   </style>
