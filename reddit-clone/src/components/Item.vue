@@ -1,19 +1,12 @@
 <template>
-    <div class="item">
+    <div class="item" :data-id="id">
         <div class="image-div">
             <img class="item-image" v-bind:src="replaceURLParts">
         </div>
         <div>
-            <div class="item-title">
-                <h1>
-                    <span>{{this.title}}</span>
-                </h1>
+            <div class="item-title"><h1><span>{{this.title}}</span></h1>
             </div>
-            <div class="item-upvotes">
-                <h1>
-                    <span>{{shortenUpvotesFormat}} updoots</span>
-                </h1>
-
+            <div class="item-upvotes"><h1><span>{{shortenUpvotesFormat}} updoots</span></h1>
             </div>
             <div class="item-info">
                 <div class="item-author">posted by <span class="author">{{this.author}}</span> at <span class="author">{{convertFromUnix}}</span> with <span class="author">{{this.commentNumber}} comments</span></div>
@@ -32,9 +25,12 @@
       author:String,
       score:Number,
       permalink:String,
+      id:String
+    },
+    methods: {
     },
     computed: {
-        replaceURLParts( ) {
+        replaceURLParts() {
             let decodedThumbnail = this.thumbnail.replace(/&amp;/g, '&')
             return decodedThumbnail
         },
@@ -59,11 +55,10 @@
                     return format
                 }
             }
-
-
         }
     }
   }
+
 </script>
 
   <!-- Add "scoped" attribute to limit CSS to this component only -->

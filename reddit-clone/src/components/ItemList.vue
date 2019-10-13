@@ -9,19 +9,31 @@
         :author="post.data.author"
         :score="post.data.score"
         :permalink="post.data.permalink"
-        :created="post.data.created_utc"/>
+        :created="post.data.created_utc"
+        :id="post.data.id"/>
     </div>
 </template>
   <script>
 
 import Item from '@/components/Item.vue'
+import postModal from '@/components/postModal.vue'
 
 export default {
   name: 'ItemList',
   components: {
-    Item
+    Item,
+    postModal
   },
-  props: ['posts'],
+  props: {
+    posts: Array,
+    isOpen: Boolean,
+  },
+  computed: {
+      toggleModal() {
+        this.isOpen = true;
+      }
+
+  },
 }
   </script>
 
