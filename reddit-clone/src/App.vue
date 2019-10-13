@@ -33,30 +33,35 @@
         posts: [],
         after: String,
         firstPage: Boolean,
-        isLoading: Boolean
+        isLoading: Boolean,
+        count: Number
       }
     },
     methods: {
         getData: function(hash){
             if(hash == 'before') {
-              let url = `https://www.reddit.com/r/aww.json?limit=10&before=${this.after}`
+              let url = `https://www.reddit.com/r/aww.json?limit=50&before=${this.after}`
               axios
                 .get(url)
                 .then(response => {
                   this.posts = response.data.data.children
                   this.after = response.data.data.after
                   if(this.firstPage !== 0) {
-                    this.firstPage --;
+                    this.firstPage--;
                   }
+                  console.log(response.data.data)
+                  console.log(this.after)
+                  
                 })
             } else {
-              let url = `https://www.reddit.com/r/aww.json?limit=10&after=${this.after}`
+              let url = `https://www.reddit.com/r/aww.json?limit=50&after=${this.after}`
               axios
                 .get(url)
                 .then(response => {
                   this.posts = response.data.data.children
                   this.after = response.data.data.after
-                  this.firstPage ++;
+                  this.firstPage++;
+                  console.log(this.after)
                 })
             }
         },
@@ -66,24 +71,26 @@
       },
     created () {
       axios
-        .get('https://www.reddit.com/r/aww.json?limit=10')
+        .get('https://www.reddit.com/r/aww.json?limit=50')
         .then(response => {
+          this.count = 0;
           this.posts = response.data.data.children
           this.after = response.data.data.after
           this.firstPage = 0;
         }),
 
-        axios.interceptors.request.use(function(config) {
+        axios.interceptors.request.use(config => {
           console.log('started ajax call')
+          console.log(this.firstPage)
           return config;
         }, function(error) {
           // Do something with request error
           return Promise.reject(error);
         });
 
-        axios.interceptors.response.use(function(response) {
+        axios.interceptors.response.use(response => {
           console.log('Done with Ajax call');
-
+          console.log(this.firstPage)
           return response;
         }, function(error) {
           return Promise.reject(error);
