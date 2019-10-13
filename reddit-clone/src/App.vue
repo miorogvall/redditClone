@@ -1,16 +1,19 @@
 <template>
   <div id="app">
-    <div id="previous">
-        <p class="pagination-icon">←</p>
-        <p class="pagination-text">previous 25</p>
+    <div id="previous" v-on:click="getData('before')" v-bind:class="{'active': this.firstPage !== 0,  'disabled': this.firstPage == 0 }">
+      <div class="flex-helper">
+        <p class="pagination-text">prev</p>
+      </div>
     </div>
     <div id="item-list">
       <ItemList :posts="posts"/>
     </div>
-    <div id="next">
-        <p class="pagination-icon">→</p>
-        <p class="pagination-text">next 25</p>
+    <div id="next" v-on:click="getData('after')">
+      <div class="flex-helper">
+        <p class="pagination-text">next</p>
+      </div>
     </div>
+    <div id="loader"></div>
   </div>
 </template>
 
@@ -26,15 +29,66 @@
       ItemList
     },
     data() {
-      return { posts: [] }
+      return {
+        posts: [],
+        after: String,
+        firstPage: Boolean,
+        isLoading: Boolean
+      }
     },
-  created () {
-    axios
-      .get('https://www.reddit.com/r/aww.json?limit=10')
-      .then(response => {
-        this.posts = response.data.data.children
-      })
-    }
+    methods: {
+        getData: function(hash){
+            if(hash == 'before') {
+              let url = `https://www.reddit.com/r/aww.json?limit=10&before=${this.after}`
+              axios
+                .get(url)
+                .then(response => {
+                  this.posts = response.data.data.children
+                  this.after = response.data.data.after
+                  if(this.firstPage !== 0) {
+                    this.firstPage --;
+                  }
+                })
+            } else {
+              let url = `https://www.reddit.com/r/aww.json?limit=10&after=${this.after}`
+              axios
+                .get(url)
+                .then(response => {
+                  this.posts = response.data.data.children
+                  this.after = response.data.data.after
+                  this.firstPage ++;
+                })
+            }
+        },
+        transitionContent: function(elem) {
+        }
+
+      },
+    created () {
+      axios
+        .get('https://www.reddit.com/r/aww.json?limit=10')
+        .then(response => {
+          this.posts = response.data.data.children
+          this.after = response.data.data.after
+          this.firstPage = 0;
+        }),
+
+        axios.interceptors.request.use(function(config) {
+          console.log('started ajax call')
+          return config;
+        }, function(error) {
+          // Do something with request error
+          return Promise.reject(error);
+        });
+
+        axios.interceptors.response.use(function(response) {
+          console.log('Done with Ajax call');
+
+          return response;
+        }, function(error) {
+          return Promise.reject(error);
+        });
+      }
 }
 </script>
 
@@ -48,6 +102,8 @@
   $white: #fdfdfd;
   $main-color: #ffc5a1;
   $secondary-color: #37003c;
+  $light-yellow: #feffa1;
+  $dark-blue: #09003c;
 
 html, body {
   min-height: 100vh;
@@ -69,29 +125,68 @@ p, h1, h2, h3, h4, h5, h6 {
   flex-direction: row;
   background: $white;
 
+  #previous {
+    position: fixed;
+    left: 0;
+
+  }
+
+  #next {
+    position: fixed;
+    right: 0;
+  }
+
   #previous, #next {
     height: 100vh;
-    width: 10%;
-    max-width: 200px;
-    min-width: 120px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 0 15px;
-    transition: background 0.4s ease;
-    color: $secondary-color;
-    background: $white;
-    
+    padding: 0 12px;
+    transition: background 0.15s ease;
+    font-weight: 600;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    font-size: 25px;
+    font-style: italic;
+    position: fixed;
+    background: $light-yellow;
+    color: $dark-blue;
+    transition: all 0.05s ease-in;
+    will-change: opacity;
+
+    &.disabled {
+      background: #e0e0e0;
+      color: #bdbdbd;
+      cursor: not-allowed;
+      transition: none;
+
+      &:hover {
+        cursor: not-allowed;
+        opacity: 1;
+        padding: 0 12px;
+      }
+    }
 
     &:hover {
-      background: $secondary-color;
-      color: $main-color;
       cursor: pointer;
+      opacity: 0.75;
+      padding: 0 22px;
     }
+
+
 
     .pagination-icon {
     }
+  }
+
+  #loader.loading {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: red;
+    opacity: 1;
+  }
+
+  #loader {
+    pointer-events: none;
+    opacity: 0;
   }
 
   #item-list {
