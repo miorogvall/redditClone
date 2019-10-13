@@ -145,18 +145,19 @@ p, h1, h2, h3, h4, h5, h6 {
 
   #previous, #next {
     height: 100vh;
-    padding: 0 12px;
+    padding: 0 20px;
     transition: background 0.15s ease;
     font-weight: 600;
     writing-mode: vertical-rl;
     text-orientation: upright;
-    font-size: 25px;
+    font-size: 22px;
     font-style: italic;
     position: fixed;
     background: $light-yellow;
-    color: $dark-blue;
+    color: $black-color;
     transition: all 0.05s ease-in;
     will-change: opacity;
+    text-transform: uppercase;
 
     &.disabled {
       background: #e0e0e0;
@@ -174,7 +175,7 @@ p, h1, h2, h3, h4, h5, h6 {
     &:hover {
       cursor: pointer;
       opacity: 0.75;
-      padding: 0 22px;
+      padding: 0 28px;
     }
 
 
@@ -199,6 +200,17 @@ p, h1, h2, h3, h4, h5, h6 {
   #item-list {
     flex: 1 0 auto;
   }
+  @keyframes gradientBG {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
 
 }
 </style>
