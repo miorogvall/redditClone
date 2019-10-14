@@ -10,7 +10,11 @@
         :score="post.data.score"
         :permalink="post.data.permalink"
         :created="post.data.created_utc"
-        :id="post.data.id"/>
+        :id="post.data.id"
+        :parentData="post"
+        v-on:childToParent="onChildClick(post)"
+      />
+        <postModal :dataRecieved="fromChild"/>
     </div>
 </template>
   <script>
@@ -25,8 +29,12 @@ export default {
     postModal
   },
   props: {
-    posts: Array,
-    isOpen: Boolean,
+    posts: Array
+  },
+  data () {
+    return {
+      fromChild: this.fromChild
+    }
   },
   computed: {
       toggleModal() {
@@ -34,6 +42,15 @@ export default {
       }
 
   },
+  methods: {
+    onChildClick (value) {
+      this.fromChild = value
+      console.log('onChildClick')
+      console.log(this.fromChild)
+      console.log(value)
+      return value;
+    }
+  }
 }
   </script>
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="item" :data-id="id">
+    <div class="item" :data-id="id" @click="emitToParent" ref="chosenItem" v-model="childMessage">
         <div class="image-div">
             <img class="item-image" v-bind:src="replaceURLParts">
         </div>
@@ -15,6 +15,8 @@
     </div>
 </template>
   <script>
+
+  import axios from 'axios'
   export default {
     name: 'Item',
     props: {
@@ -25,9 +27,23 @@
       author:String,
       score:Number,
       permalink:String,
-      id:String
+      id:String,
+      parentData: Object,
+      stringProp: String,
+      title: String,
+      childMessage: Object
     },
     methods: {
+        emitToParent(event) {
+            const item = this.$refs.chosenItem
+            const postId = item.dataset.id
+            console.log(postId)
+            axios
+            .get(`https://www.reddit.com/comments/${postId}/.json`)
+            .then(response => {
+                this.$emit('childToParent', response)
+            })
+        }
     },
     computed: {
         replaceURLParts() {
