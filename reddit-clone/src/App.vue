@@ -40,7 +40,7 @@
     methods: {
         getData: function(hash){
             if(hash == 'before') {
-              let url = `https://www.reddit.com/r/aww.json?limit=10&before=${this.after}`
+              let url = `https://www.reddit.com/r/GlobalOffensive.json?limit=10&before=${this.after}`
               axios
                 .get(url)
                 .then(response => {
@@ -54,7 +54,7 @@
                   
                 })
             } else {
-              let url = `https://www.reddit.com/r/aww.json?limit=10&after=${this.after}`
+              let url = `https://www.reddit.com/r/GlobalOffensive.json?limit=10&after=${this.after}`
               axios
                 .get(url)
                 .then(response => {
@@ -71,7 +71,7 @@
       },
     created () {
       axios
-        .get('https://www.reddit.com/r/aww.json?limit=10')
+        .get('https://www.reddit.com/r/GlobalOffensive.json?limit=10')
         .then(response => {
           this.count = 0;
           this.posts = response.data.data.children

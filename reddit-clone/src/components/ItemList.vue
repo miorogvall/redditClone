@@ -3,7 +3,7 @@
       <Item
         v-for="post in posts"
         v-bind:key="post.id"
-        :thumbnail="post.data.preview.images[0].source.url"
+        :thumbnail="setImage(post.data.preview)"
         :title="post.data.title"
         :commentNumber="post.data.num_comments"
         :author="post.data.author"
@@ -14,7 +14,7 @@
         :parentData="post"
         v-on:childToParent="onChildClick(post)"
       />
-        <postModal :dataRecieved="fromChild"/>
+        <postModal :dataRecieved="fromChild" :isOpen="modalOpen"/>
     </div>
 </template>
   <script>
@@ -29,18 +29,13 @@ export default {
     postModal
   },
   props: {
-    posts: Array
+    posts: Array,
+    modalOpen: String
   },
   data () {
     return {
-      fromChild: this.fromChild
+      fromChild: this.fromChild,
     }
-  },
-  computed: {
-      toggleModal() {
-        this.isOpen = true;
-      }
-
   },
   methods: {
     onChildClick (value) {
@@ -49,6 +44,22 @@ export default {
       console.log(this.fromChild)
       console.log(value)
       return value;
+    },
+    setImage (imageSet) {
+      let finalImage
+      console.log(imageSet)
+      if(imageSet !== undefined) {
+        finalImage = imageSet.images[0].source.url
+      } else {
+        finalImage = require('../static/placeholder.png')
+      }
+      return finalImage
+/*       if(image.length > 0) {
+        finalImage = image
+      } else {
+        finalImage = "reddit-clone\src\assets\placeholder-900.jpg"
+      } */
+      /* return finalImage */
     }
   }
 }
