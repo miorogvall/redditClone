@@ -3,9 +3,9 @@
             <div class="overlay" v-if="dataRecieved !== undefined" v-bind:class="isOpen">
                 <div class="wrapper">
                     <div class="item-title"><h1><span>{{dataRecieved.data.title}}</span></h1></div>
-                    <div class="item-text">{{dataRecieved.data.selftext}}</h1></div>
+                    <div class="item-text" v-if="dataRecieved.data.selftext !== ''" v-html="dataRecieved.data.selftext_html"></h1></div>
                 </div>
-                <div class="close">X</div>
+                <div class="close" v-on:click="closeModal">X</div>
             </div>
         </div>
      </template>
@@ -21,16 +21,18 @@
             created () {
                 console.log('hey')
                 console.log(this.dataRecieved)
+                console.log(this.isOpen)
+                
             },
-            computed: {
-                closeModal() {
+            methods: {
+                closeModal: function(event) {
+                    this.$emit('isOpen', 'is-closed')
                 }
             }
 }
      </script>
     
       <style scoped lang="scss">
-
           
             $black-color: #272727;
             $white: #fdfdfd;
@@ -115,6 +117,44 @@
                     word-break: break-word;
                     color: $black-color;
                     line-height: 23px;
+
+                    /deep/ p {
+                        margin-top: 10px;
+                    }
+                    /deep/ h1 {
+                        margin-top: 10px;
+                        margin-bottom: 20px;
+                    }
+
+                    /deep/ h2 {
+                        margin-top: 10px;
+                    }
+
+                    /deep/ h3 {
+                        margin-top: 10px;
+                    }
+
+                    /deep/ h4 {
+                        margin-top: 10px;
+                    }
+
+                    /deep/ h5 {
+                        margin-top: 10px;
+                    }
+
+                    /deep/ h6 {
+                        margin-top: 10px;
+                    }
+
+                    /deep/ a {
+                        margin-top: 10px;
+                    }
+
+                    /deep/ hr {
+                        margin-top: 18px;
+                        margin-bottom: 18px;
+                        display: block;
+                    }
                 }
           }
       </style>

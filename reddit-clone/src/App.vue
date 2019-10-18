@@ -112,6 +112,21 @@
   $light-yellow: #feffa1;
   $dark-blue: #09003c;
 
+  a {
+    color: #37003c;
+    text-decoration: none;
+    border-bottom: 2px solid #ffc5a1;
+    transition: all 0.05s ease;
+    line-height: 25px;
+
+    &:hover {
+      color: #37003c;
+      border-bottom: 2px solid #37003c;
+      background: #ffc5a1;
+      padding: 3px;
+    }
+  }
+
 html, body {
   min-height: 100vh;
   padding: 0;

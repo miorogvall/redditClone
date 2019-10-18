@@ -14,7 +14,7 @@
         :parentData="post"
         v-on:childToParent="onChildClick(post)"
       />
-        <postModal :dataRecieved="fromChild" :isOpen="modalOpen"/>
+        <postModal :dataRecieved="fromChild" :isOpen="modalOpen" @isOpen="closeModal"/>
     </div>
 </template>
   <script>
@@ -30,18 +30,19 @@ export default {
   },
   props: {
     posts: Array,
-    modalOpen: String
   },
   data () {
     return {
       fromChild: this.fromChild,
+      modalOpen: 'is-open'
     }
   },
   methods: {
     onChildClick (value) {
       this.fromChild = value
-      console.log('onChildClick')
-      console.log(this.fromChild)
+      var document = new DOMParser().parseFromString(value.data.selftext_html, "text/html");
+      console.log(document.body.textContent)
+      value.data.selftext_html = document.body.textContent
       console.log(value)
       return value;
     },
@@ -54,12 +55,9 @@ export default {
         finalImage = require('../static/placeholder.png')
       }
       return finalImage
-/*       if(image.length > 0) {
-        finalImage = image
-      } else {
-        finalImage = "reddit-clone\src\assets\placeholder-900.jpg"
-      } */
-      /* return finalImage */
+    },
+    closeModal () {
+      this.isOpen = 'is-closed'
     }
   }
 }
