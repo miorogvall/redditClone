@@ -14,7 +14,7 @@
         :parentData="post"
         v-on:childToParent="onChildClick(post)"
       />
-        <postModal :dataRecieved="fromChild" :isOpen="modalOpen" @isOpen="closeModal"/>
+        <postModal :dataRecieved="fromChild"/>
     </div>
 </template>
   <script>
@@ -33,17 +33,14 @@ export default {
   },
   data () {
     return {
-      fromChild: this.fromChild,
-      modalOpen: 'is-open'
+      fromChild: this.fromChild
     }
   },
   methods: {
     onChildClick (value) {
       this.fromChild = value
       var document = new DOMParser().parseFromString(value.data.selftext_html, "text/html");
-      console.log(document.body.textContent)
       value.data.selftext_html = document.body.textContent
-      console.log(value)
       return value;
     },
     setImage (imageSet) {
@@ -56,9 +53,6 @@ export default {
       }
       return finalImage
     },
-    closeModal () {
-      this.isOpen = 'is-closed'
-    }
   }
 }
   </script>

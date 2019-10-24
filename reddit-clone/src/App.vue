@@ -112,17 +112,47 @@
   $light-yellow: #feffa1;
   $dark-blue: #09003c;
 
+    /* width */
+  ::-webkit-scrollbar {
+    width: 8.5px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: $secondary-color;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: $main-color; 
+    border-radius: 5px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: $main-color; 
+    opacity: 0.9;
+  }
+
+  #body {
+    overflow: auto;
+
+    &.modal-open {
+      overflow: hidden;
+    }
+  }
+
   a {
-    color: #37003c;
+    color: $secondary-color;
     text-decoration: none;
-    border-bottom: 2px solid #ffc5a1;
+    border-bottom: 2px solid $main-color;
     transition: all 0.05s ease;
     line-height: 25px;
 
     &:hover {
-      color: #37003c;
-      border-bottom: 2px solid #37003c;
-      background: #ffc5a1;
+      color: $secondary-color;
+      border-bottom: 2px solid $secondary-color;
+      background: $main-color;
       padding: 3px;
     }
   }

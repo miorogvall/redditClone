@@ -38,10 +38,17 @@
             const item = this.$refs.chosenItem
             const postId = item.dataset.id
             console.log(postId)
+            console.log('emitToParent')
             axios
             .get(`https://www.reddit.com/comments/${postId}/.json`)
             .then(response => {
                 this.$emit('childToParent', response)
+                let overlay = document.getElementsByClassName('overlay')
+                let body = document.getElementById('body')
+                overlay['0'].classList.remove('is-closed')
+                overlay['0'].classList.add('is-open')
+                body.classList.add('modal-open')
+                body.classList.remove('modal-closed')
             })
         }
     },
@@ -80,10 +87,12 @@
   <!-- Add "scoped" attribute to limit CSS to this component only -->
   <style scoped lang="scss">
 
-  $black-color: #272727;
-  $white: #fdfdfd;
-  $main-color: #ffc5a1;
-  $secondary-color: #37003c;
+        $black-color: #272727;
+        $white: #fdfdfd;
+        $main-color: #ffc5a1;
+        $secondary-color: #37003c;
+        $light-yellow: #feffa1;
+        $dark-blue: #09003c;
 
 .item {
     width: 800px;
