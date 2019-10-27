@@ -34,7 +34,9 @@
         after: String,
         firstPage: Boolean,
         isLoading: Boolean,
-        count: 0
+        count: 10,
+        before: '',
+        after: ''
       }
     },
     methods: {
@@ -45,18 +47,19 @@
               } else {
                 this.count = this.count -= 10;
               }
+              console.log('CURRENT BEFORE', this.before)
               let url = `https://www.reddit.com/r/GlobalOffensive/top/.json?limit=10&count=${this.count}&before=${this.before}?raw_json=1`
               axios
                 .get(url)
                 .then(response => {
                   this.posts = response.data.data.children
                   this.after = response.data.data.after
-                  if(this.firstPage !== 0) {
-                    this.firstPage--;
-                  }
+                  this.before = response.data.data.before
+                   console.log(url)
+                   console.log('META BELOW')
                   console.log(this.before)
                   console.log(this.after)
-                  console.log(url)
+                  console.log(this.count)
                   
                 })
             } else {
@@ -67,10 +70,12 @@
                 .then(response => {
                   this.posts = response.data.data.children
                   this.after = response.data.data.after
-                  this.firstPage++;
-                  console.log(this.after)
+                  this.before = response.data.data.before
                   console.log(url)
+                  console.log('META BELOW')
+                  console.log(this.after)
                   console.log(this.before)
+                  console.log(this.count)
                 })
             }
         },
@@ -82,10 +87,12 @@
       axios
         .get(`https://www.reddit.com/r/GlobalOffensive.json?limit=10&raw_json=1`)
         .then(response => {
-          this.count = 0;
+          this.count = 10;
           this.posts = response.data.data.children
           this.after = response.data.data.after
-          this.firstPage = 0;
+          this.before = response.data.data.before
+          console.log(this.before)
+          console.log(this.after)
         }),
 
         axios.interceptors.request.use(config => {
