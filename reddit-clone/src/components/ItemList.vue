@@ -45,7 +45,6 @@ export default {
     },
     setImage (imageSet) {
       let finalImage
-      console.log(imageSet)
       if(imageSet !== undefined) {
         finalImage = imageSet.images[0].source.url
       } else {

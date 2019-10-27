@@ -1,7 +1,7 @@
 <template>
     <div class="item" :data-id="id" @click="emitToParent" ref="chosenItem" v-model="childMessage">
         <div class="image-div">
-            <img class="item-image" v-bind:src="replaceURLParts">
+            <img class="item-image" v-bind:src="this.thumbnail">
         </div>
         <div>
             <div class="item-title"><h1><span>{{this.title}}</span></h1>
@@ -53,10 +53,6 @@
         }
     },
     computed: {
-        replaceURLParts() {
-            let decodedThumbnail = this.thumbnail.replace(/&amp;/g, '&')
-            return decodedThumbnail
-        },
         convertFromUnix() {
             let options = {year: 'numeric', month: '2-digit', day: '2-digit', hour: 'numeric', minute: 'numeric' };
             let timestamp = new Date(this.created*1000).toLocaleDateString('SE-se', options).replace(/\//g, '-');

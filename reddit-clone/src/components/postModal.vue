@@ -4,7 +4,7 @@
                 <div class="wrapper" v-if="dataRecieved !== undefined">
                     <div class="item-title"><h1><span>{{dataRecieved.data.title}}</span></h1></div>
                     <div class="item-text" v-if="this.dataRecieved.data.selftext_html.length > 0 && this.dataRecieved.data.selftext_html !== 'null'" v-html="dataRecieved.data.selftext_html"></h1></div>
-                    <div class="media" v-if="this.dataRecieved.data.post_hint == 'rich:video'" v-html="replaceURLParts"></div>
+                    <div class="media" v-if="this.dataRecieved.data.post_hint == 'rich:video'" v-html="this.dataRecieved.data.media.oembed.html"></div>
                    <div v-if="this.dataRecieved.data.post_hint == 'image'">
                         <img class="image" v-bind:src="dataRecieved.data.url">
                     </div>
@@ -13,7 +13,7 @@
                             <source :src="dataRecieved.data.media.reddit_video.fallback_url">
                         </video>
                     </div>
-                    <div v-if="this.dataRecieved.data.post_hint == 'link'"class="link" v-html="replaceURLParts2"></div>
+                    <div v-if="this.dataRecieved.data.post_hint == 'link'" class="link" v-html="this.dataRecieved.data.media_embed.content"></div>
                 </div>
                 <div class="close" v-on:click="closeModal">X</div>
             </div>
@@ -50,22 +50,6 @@
                     }
                 }
             },
-            computed: {
-                replaceURLParts() {
-                    let media = this.dataRecieved.data.media.oembed.html
-                    let document = new DOMParser().parseFromString(media, "text/html");
-                    let value = document.body.textContent
-
-                    return value;
-                },
-                replaceURLParts2() {
-                    let media = this.dataRecieved.data.media_embed.content
-                    let document = new DOMParser().parseFromString(media, "text/html");
-                    let value = document.body.textContent
-
-                    return value;
-                }
-            }
 }
      </script>
     

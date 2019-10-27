@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div id="previous" v-on:click="getData('before')" v-bind:class="{'active': this.firstPage !== 0,  'disabled': this.firstPage == 0 }">
+    <div id="previous" v-on:click="getData('before')" v-bind:class="{'active': this.count > 0,  'disabled': this.count == 0 }">
       <div class="flex-helper">
         <p class="pagination-text">prev</p>
       </div>
@@ -34,13 +34,18 @@
         after: String,
         firstPage: Boolean,
         isLoading: Boolean,
-        count: Number
+        count: 0
       }
     },
     methods: {
         getData: function(hash){
             if(hash == 'before') {
-              let url = `https://www.reddit.com/r/GlobalOffensive.json?limit=10&before=${this.after}`
+              if (this.count == 10 && this.count == 0) {
+                this.count = 0 
+              } else {
+                this.count = this.count -= 10;
+              }
+              let url = `https://www.reddit.com/r/GlobalOffensive/top/.json?limit=10&count=${this.count}&before=${this.before}?raw_json=1`
               axios
                 .get(url)
                 .then(response => {
@@ -49,12 +54,14 @@
                   if(this.firstPage !== 0) {
                     this.firstPage--;
                   }
-                  console.log(response.data.data)
+                  console.log(this.before)
                   console.log(this.after)
+                  console.log(url)
                   
                 })
             } else {
-              let url = `https://www.reddit.com/r/GlobalOffensive.json?limit=10&after=${this.after}`
+               this.count = this.count += 10;
+              let url = `https://www.reddit.com/r/GlobalOffensive/top/.json?limit=10&count=${this.count}&after=${this.after}&raw_json=1`
               axios
                 .get(url)
                 .then(response => {
@@ -62,6 +69,8 @@
                   this.after = response.data.data.after
                   this.firstPage++;
                   console.log(this.after)
+                  console.log(url)
+                  console.log(this.before)
                 })
             }
         },
@@ -71,7 +80,7 @@
       },
     created () {
       axios
-        .get('https://www.reddit.com/r/GlobalOffensive.json?limit=10')
+        .get(`https://www.reddit.com/r/GlobalOffensive.json?limit=10&raw_json=1`)
         .then(response => {
           this.count = 0;
           this.posts = response.data.data.children
@@ -80,8 +89,6 @@
         }),
 
         axios.interceptors.request.use(config => {
-          console.log('started ajax call')
-          console.log(this.firstPage)
           return config;
         }, function(error) {
           // Do something with request error
@@ -89,8 +96,6 @@
         });
 
         axios.interceptors.response.use(response => {
-          console.log('Done with Ajax call');
-          console.log(this.firstPage)
           return response;
         }, function(error) {
           return Promise.reject(error);
@@ -114,7 +119,7 @@
 
     /* width */
   ::-webkit-scrollbar {
-    width: 8.5px;
+    width: 12px;
   }
 
   /* Track */
