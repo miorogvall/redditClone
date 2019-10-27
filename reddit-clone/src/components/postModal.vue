@@ -9,7 +9,7 @@
                         <img class="image" v-bind:src="dataRecieved.data.url">
                     </div>
                     <div v-if="this.dataRecieved.data.post_hint == 'hosted:video'">
-                        <video class="video" controls autoplay="true">
+                        <video class="video" controls autoplay="true" loop="loop">
                             <source :src="dataRecieved.data.media.reddit_video.fallback_url">
                         </video>
                     </div>
@@ -31,6 +31,7 @@
             },
             methods: {
                 closeModal: function(event) {
+                    // provisional solution, not proud of it...
                     let overlay = document.getElementsByClassName('overlay')
                     let body = document.getElementById('body')
                     overlay['0'].classList.add('is-closed')
@@ -38,6 +39,15 @@
                     body.classList.add('modal-closed')
                     body.classList.remove('modal-open')
                     console.log(this.dataRecieved.data)
+                    let video = document.querySelector('video.video')
+                    let iframe = document.querySelector(".overlay iframe")
+                    if (iframe) {
+                        var iframeSrc = iframe.src;
+                        iframe.src = iframeSrc;
+                    }
+                    if (video) {
+                        video.pause();
+                    }
                 }
             },
             computed: {
