@@ -2,15 +2,24 @@
   <div id="app">
     <div id="previous" v-on:click="getData('before')" v-bind:class="{'active': this.count > 0,  'disabled': this.count == 0 }">
       <div class="flex-helper">
-        <p class="pagination-text">prev</p>
+        <p class="pagination-text">prev {{this.before}}</p>
       </div>
     </div>
     <div id="item-list">
+      <div class="header">
+        <select class="limit" @change="handleChange">
+          <option value="5">5 entries</option>
+          <option value="10 entries">10</option>
+          <option value="25 entries">25</option>
+      </select>
+      <input class="subreddit" type="text" @change="handleChange">
+      </div>
+
       <ItemList :posts="posts"/>
     </div>
     <div id="next" v-on:click="getData('after')">
       <div class="flex-helper">
-        <p class="pagination-text">next</p>
+        <p class="pagination-text">next {{this.after}}</p>
       </div>
     </div>
     <div id="loader"></div>
@@ -36,10 +45,40 @@
         isLoading: Boolean,
         count: 10,
         before: '',
-        after: ''
+        after: '',
+        limit: 5,
+        subreddit: 'all'
       }
     },
     methods: {
+      handleChange: function (e) {
+        console.log('changed')
+        console.log(e.target.classList)
+        if(e.target.classList.contains('limit')) {
+         this.limit = e.target.options[e.target.options.selectedIndex].value
+        }
+        if(e.target.classList.contains('subreddit')) {
+          if(e.target.value != '') {
+          this.subreddit = e.target.value
+          } else {
+            this.subreddit = 'all'
+          }
+          console.log(e.target.value)
+        }
+        console.log(this.limit, this.subreddit)
+               this.count = this.count = 0;
+               console.log(this.after, 'after before post')
+               console.log(this.before, 'before before post')
+              let url = `https://www.reddit.com/r/${this.subreddit}/hot/.json?limit=${this.limit}&count=${this.count}&raw_json=1`
+              axios.get(url).then(response => {
+                  this.posts = response.data.data.children
+                  this.after = response.data.data.after
+                  this.before = response.data.data.before
+                  console.log(url)
+                  console.log('META BELOW')
+                  console.log(this.count)
+                })
+      },
         getData: function(hash){
           console.log(hash)
             if(hash == 'before') {
@@ -48,8 +87,10 @@
               } else {
                 this.count = this.count -= 10;
               }
+               console.log(this.after, 'after before post')
+               console.log(this.before, 'before before post')
               console.log('CURRENT BEFORE', this.before)
-              let url = `https://www.reddit.com/r/GlobalOffensive/hot/.json?limit=10&count=${this.count}&before=${this.before}?raw_json=1`
+              let url = `https://www.reddit.com/r/${this.subreddit}/hot/.json?limit=${this.limit}&count=${this.count}&before=${this.before}?raw_json=1`
               axios.get(url).then(response => {
                   this.posts = response.data.data.children
                   this.after = response.data.data.after
@@ -61,7 +102,9 @@
                 })
             } else {
                this.count = this.count += 10;
-              let url = `https://www.reddit.com/r/GlobalOffensive/hot/.json?limit=10&count=${this.count}&after=${this.after}&raw_json=1`
+               console.log(this.after, 'after before post')
+               console.log(this.before, 'before before post')
+              let url = `https://www.reddit.com/r/${this.subreddit}/hot/.json?limit=${this.limit}&count=${this.count}&after=${this.after}&raw_json=1`
               axios.get(url).then(response => {
                   this.posts = response.data.data.children
                   this.after = response.data.data.after
@@ -80,7 +123,7 @@
       },
     created () {
       axios
-        .get(`https://www.reddit.com/r/GlobalOffensive.json?limit=10&raw_json=1`)
+        .get(`https://www.reddit.com/r/${this.subreddit}.json?limit=${this.limit}&raw_json=1`)
         .then(response => {
           this.count = 10;
           this.posts = response.data.data.children
