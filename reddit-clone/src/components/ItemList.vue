@@ -45,8 +45,10 @@ export default {
     },
     setImage (imageSet) {
       let finalImage
+      console.log(imageSet)
       if(imageSet !== undefined) {
         finalImage = imageSet.images[0].source.url
+        finalImage = finalImage.replace(/&amp;/g, '&');
       } else {
         finalImage = require('../static/placeholder.png')
       }

@@ -41,6 +41,7 @@
     },
     methods: {
         getData: function(hash){
+          console.log(hash)
             if(hash == 'before') {
               if (this.count == 10 && this.count == 0) {
                 this.count = 0 
@@ -48,36 +49,30 @@
                 this.count = this.count -= 10;
               }
               console.log('CURRENT BEFORE', this.before)
-              let url = `https://www.reddit.com/r/GlobalOffensive/top/.json?limit=10&count=${this.count}&before=${this.before}?raw_json=1`
-              axios
-                .get(url)
-                .then(response => {
+              let url = `https://www.reddit.com/r/GlobalOffensive/hot/.json?limit=10&count=${this.count}&before=${this.before}?raw_json=1`
+              axios.get(url).then(response => {
                   this.posts = response.data.data.children
                   this.after = response.data.data.after
                   this.before = response.data.data.before
                    console.log(url)
                    console.log('META BELOW')
-                  console.log(this.before)
-                  console.log(this.after)
                   console.log(this.count)
                   
                 })
             } else {
                this.count = this.count += 10;
-              let url = `https://www.reddit.com/r/GlobalOffensive/top/.json?limit=10&count=${this.count}&after=${this.after}&raw_json=1`
-              axios
-                .get(url)
-                .then(response => {
+              let url = `https://www.reddit.com/r/GlobalOffensive/hot/.json?limit=10&count=${this.count}&after=${this.after}&raw_json=1`
+              axios.get(url).then(response => {
                   this.posts = response.data.data.children
                   this.after = response.data.data.after
                   this.before = response.data.data.before
                   console.log(url)
                   console.log('META BELOW')
-                  console.log(this.after)
-                  console.log(this.before)
                   console.log(this.count)
                 })
             }
+            console.log('after', this.after)
+            console.log('before', this.before)
         },
         transitionContent: function(elem) {
         }
