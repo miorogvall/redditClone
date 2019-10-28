@@ -7,12 +7,18 @@
     </div>
     <div id="item-list">
       <div class="header">
-        <select class="limit" @change="handleChange">
-          <option value="5">5 entries</option>
-          <option value="10 entries">10</option>
-          <option value="25 entries">25</option>
-      </select>
-      <input class="subreddit" type="text" @change="handleChange">
+        <div class="data-box">
+          <label for="limit"># of entries</label>
+          <select class="limit" @change="handleChange" name="limit">
+            <option value="5">5</option>
+            <option value="10 entries">10</option>
+            <option value="25 entries">25</option>
+          </select>
+      </div>
+      <div class="data-box">
+        <label for="subreddit">subreddit</label>
+        <input class="subreddit" type="text" @change="handleChange" name="subreddit">
+      </div>
       </div>
 
       <ItemList :posts="posts"/>
@@ -189,6 +195,61 @@
 
     &.modal-open {
       overflow: hidden;
+    }
+  }
+
+  .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: $secondary-color;
+    padding: 15px 0px;
+
+    .data-box {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      width: 300px;
+      text-align: left;
+
+        input, label, select {
+          display:block;
+          outline: none;
+        }
+
+        label {
+          color: #ffc5a1;
+          font-weight: bold;
+          border: none;
+          text-transform: uppercase;
+          font-size: 19px;
+          letter-spacing: 0.5px;
+          font-style: italic;
+          background: transparent;
+          margin-bottom: 5px;
+        }
+        select {
+          background: rgba(0, 0, 0, 0.28);
+          border: none;
+          padding: 10px 14px;
+          width: 60px;
+          color: #ffc5a1;
+          font-size: 16px;
+          font-weight: 600;
+          outline: none;
+          -webkit-appearance: none;
+          cursor: pointer;
+        }
+        input {
+          background: rgba(0, 0, 0, 0.28);
+          border: none;
+          padding: 10px 10px;
+          font-weight: 600;
+          color: #ffc5a1;
+          font-size: 16px;
+          width: 100%;
+          cursor: pointer;
+        }
     }
   }
 
