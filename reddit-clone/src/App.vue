@@ -9,15 +9,18 @@
       <div class="header">
         <div class="data-box">
           <label for="limit"># of entries</label>
-          <select class="limit" @change="handleChange" name="limit">
-            <option value="5">5</option>
-            <option value="10 entries">10</option>
-            <option value="25 entries">25</option>
-          </select>
+          <div class="wrapper-icon">
+            <span class="arrow-down"><i class="fas fa-chevron-down"></i></span>
+            <select class="limit" @change="handleChange" name="limit">
+              <option value="5">5</option>
+              <option value="10 entries">10</option>
+              <option value="25 entries">25</option>
+            </select>
+        </div>
       </div>
       <div class="data-box">
         <label for="subreddit">subreddit</label>
-        <input class="subreddit" type="text" @change="handleChange" name="subreddit">
+        <input class="subreddit" type="text" @change="handleChange" name="subreddit" placeholder="subreddit">
       </div>
       </div>
 
@@ -163,30 +166,41 @@
 
   $black-color: #272727;
   $white: #fdfdfd;
-  $main-color: #ffc5a1;
-  $secondary-color: #37003c;
-  $light-yellow: #feffa1;
-  $dark-blue: #09003c;
+  $main-color: #ffe06d;
+  $secondary-color: #20203c;
+  $faded-red: #a23354;
+  $baby-blue: #c8d8f5;
+
+/* i love the overwatch font... */
+  @font-face {
+  font-family: overwatch;
+  src: url(https://us.battle.net/forums/static/fonts/f014015d/f014015d.woff);
+}
+
+@font-face {
+  font-family: overwatch-italic;
+  src: url(https://us.battle.net/forums/static/fonts/bignoodletoo/bignoodletoo.woff);
+}
 
     /* width */
   ::-webkit-scrollbar {
-    width: 12px;
+    width: 10px;
   }
 
   /* Track */
   ::-webkit-scrollbar-track {
-    background: $secondary-color;
+    background: #141422;
   }
   
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: $main-color; 
-    border-radius: 5px;
+    background: $baby-blue; 
+    border-radius: 3px;
   }
 
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: $main-color; 
+    background: $baby-blue; 
     opacity: 0.9;
   }
 
@@ -202,8 +216,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: $secondary-color;
+    background: $baby-blue;
     padding: 15px 0px;
+    position: fixed;
+    width: 100%;
+    z-index: 99;
+
+    .wrapper-icon {
+      position: relative;
+    }
 
     .data-box {
       display: flex;
@@ -218,37 +239,58 @@
         }
 
         label {
-          color: #ffc5a1;
+          color: $secondary-color;
           font-weight: bold;
           border: none;
           text-transform: uppercase;
-          font-size: 19px;
+          font-size: 14px;
           letter-spacing: 0.5px;
           font-style: italic;
           background: transparent;
-          margin-bottom: 5px;
+        }
+
+        .arrow-down {
+          color: $main-color;
+          font-family: "fontAwesome";
+          left: 38px;
+          top: 15px;
+          font-size: 12px;
+          display: block;
+          position: absolute;
+          pointer-events: none;
         }
         select {
-          background: rgba(0, 0, 0, 0.28);
+          background: $secondary-color;
           border: none;
           padding: 10px 14px;
           width: 60px;
-          color: #ffc5a1;
+          color: $main-color;
           font-size: 16px;
           font-weight: 600;
           outline: none;
           -webkit-appearance: none;
           cursor: pointer;
+          transition: all 0.15 ease;
+          margin-top: 4px;
+
         }
         input {
-          background: rgba(0, 0, 0, 0.28);
+          background: transparent;
           border: none;
-          padding: 10px 10px;
           font-weight: 600;
-          color: #ffc5a1;
-          font-size: 16px;
+          color: #20203c;
+          font-size: 25px;
           width: 100%;
-          cursor: pointer;
+          border-bottom: 2px solid #ffe06d;
+
+          &::placeholder {
+            color: inherit;
+            font-size: 14px;
+          }
+
+          &:focus {
+            background: $secondary-color;
+          }
         }
     }
   }
@@ -286,7 +328,7 @@ p, h1, h2, h3, h4, h5, h6 {
   text-align: center;
   display: flex;
   flex-direction: row;
-  background: $white;
+  background: $secondary-color;
 
   #previous {
     position: fixed;
@@ -306,25 +348,26 @@ p, h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
     writing-mode: vertical-rl;
     text-orientation: upright;
-    font-size: 22px;
+    font-size: 17px;
     font-style: italic;
     position: fixed;
-    background: $light-yellow;
-    color: $black-color;
+    background: rgba(0, 0, 0, 0.2);
+    color: $faded-red;
     transition: all 0.05s ease-in;
     will-change: opacity;
     text-transform: uppercase;
+    z-index: 999999;
 
     &.disabled {
-      background: #e0e0e0;
-      color: #bdbdbd;
+      background: #151515;
+      color: #404040;
       cursor: not-allowed;
       transition: none;
 
       &:hover {
         cursor: not-allowed;
         opacity: 1;
-        padding: 0 12px;
+        padding: 0 20px;
       }
     }
 

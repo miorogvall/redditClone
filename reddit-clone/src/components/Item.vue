@@ -85,10 +85,10 @@
 
         $black-color: #272727;
         $white: #fdfdfd;
-        $main-color: #ffc5a1;
-        $secondary-color: #37003c;
-        $light-yellow: #feffa1;
-        $dark-blue: #09003c;
+        $main-color: #ffe06d;
+        $secondary-color: #20203c;
+        $faded-red: #a23354;
+        $baby-blue: #c8d8f5;
 
 .item {
     width: 800px;
@@ -157,8 +157,8 @@
             text-align: left;
 
             span {
-                color: $main-color;
-                background-color: $secondary-color;
+                color: $baby-blue;
+                background-color: $faded-red;
                 font-family: "Montserrat";
                 text-transform: capitalize;
                 font-style: italic;
@@ -166,7 +166,7 @@
                 line-height: 2;
                 padding: 5px 0px;
                 display: inline;
-                box-shadow: 10px 0 0 $secondary-color, -10px 0 0 $secondary-color;
+                box-shadow: 10px 0 0 $faded-red, -10px 0 0 $faded-red;
                 font-weight: 600;
             }
         }
@@ -178,11 +178,11 @@
         font-size: 12px;
         margin-left: 30px;
         font-weight: 600;
-        color: $secondary-color;
+        color: $baby-blue;
         
 
         span {
-            border-bottom: 2px solid $main-color;
+            border-bottom: 2px solid $faded-red;
         }
     }
 

@@ -57,10 +57,10 @@
           
         $black-color: #272727;
         $white: #fdfdfd;
-        $main-color: #ffc5a1;
-        $secondary-color: #37003c;
-        $light-yellow: #feffa1;
-        $dark-blue: #09003c;
+        $main-color: #ffe06d;
+        $secondary-color: #20203c;
+        $faded-red: #a23354;
+        $baby-blue: #c8d8f5;
 
           .overlay{
               position: fixed;
@@ -68,7 +68,7 @@
               right: 0;
               top: 0;
               bottom: 0;
-              background: $light-yellow;
+              background: $secondary-color;
               z-index: 1;
               overflow: auto;
               
@@ -85,8 +85,8 @@
                 right: 0;
                 top: 0;
                 padding: 8px 18px;
-                background: $secondary-color;
-                color: $main-color;
+                background: $baby-blue;
+                color: $faded-red;
                 font-family: "Montserrat";
                 font-weight: bold;
                 font-size: 30px;
@@ -94,8 +94,8 @@
                 transition: all 0.15s ease;
 
                 &:hover {
-                    color: $secondary-color;
-                    background-color: $main-color;
+                    color: $baby-blue;
+                    background-color: $faded-red;
 
                 }
 
@@ -136,7 +136,7 @@
                     margin-top: 50px;
                     display: block;
                     word-break: break-word;
-                    color: $black-color;
+                    color: $baby-blue;
                     line-height: 23px;
 
                     /deep/ p {

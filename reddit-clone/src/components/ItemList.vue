@@ -62,5 +62,6 @@ export default {
   <style scoped lang="scss">
 .item-list {
     padding: 50px 20px;
+    padding-top: 150px;
 }
   </style>
