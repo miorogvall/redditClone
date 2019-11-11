@@ -72,59 +72,39 @@
           } else {
             this.subreddit = 'all'
           }
-          console.log(e.target.value)
         }
-        console.log(this.limit, this.subreddit)
                this.count = this.count = 0;
-               console.log(this.after, 'after before post')
-               console.log(this.before, 'before before post')
               let url = `https://www.reddit.com/r/${this.subreddit}/hot/.json?limit=${this.limit}&count=${this.count}&raw_json=1`
               axios.get(url).then(response => {
                   this.posts = response.data.data.children
                   this.after = response.data.data.after
                   this.before = response.data.data.before
-                  console.log(url)
-                  console.log('META BELOW')
-                  console.log(this.count)
                 })
       },
         getData: function(hash){
-          console.log(hash)
             if(hash == 'before') {
               if (this.count == 10 && this.count == 0) {
                 this.count = 0 
               } else {
                 this.count = this.count -= 10;
               }
-               console.log(this.after, 'after before post')
-               console.log(this.before, 'before before post')
               console.log('CURRENT BEFORE', this.before)
               let url = `https://www.reddit.com/r/${this.subreddit}/hot/.json?limit=${this.limit}&count=${this.count}&before=${this.before}&raw_json=1`
               axios.get(url).then(response => {
                   this.posts = response.data.data.children
                   this.after = response.data.data.after
                   this.before = response.data.data.before
-                   console.log(url)
-                   console.log('META BELOW')
-                  console.log(this.count)
                   
                 })
             } else {
                this.count = this.count += 10;
-               console.log(this.after, 'after before post')
-               console.log(this.before, 'before before post')
               let url = `https://www.reddit.com/r/${this.subreddit}/hot/.json?limit=${this.limit}&count=${this.count}&after=${this.after}&raw_json=1`
               axios.get(url).then(response => {
                   this.posts = response.data.data.children
                   this.after = response.data.data.after
                   this.before = response.data.data.before
-                  console.log(url)
-                  console.log('META BELOW')
-                  console.log(this.count)
                 })
             }
-            console.log('after', this.after)
-            console.log('before', this.before)
         },
         transitionContent: function(elem) {
         }
@@ -220,7 +200,7 @@
     padding: 15px 0px;
     position: fixed;
     width: 100%;
-    z-index: 99;
+    z-index: 99999999;
 
     .wrapper-icon {
       position: relative;

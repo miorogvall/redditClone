@@ -35,12 +35,12 @@
     },
     methods: {
         emitToParent(event) {
-            const item = this.$refs.chosenItem
-            const postId = item.dataset.id
+            let item = this.$refs.chosenItem
+            let postId = item.dataset.id
             console.log(postId)
             console.log('emitToParent')
             axios
-            .get(`https://www.reddit.com/comments/${postId}/.json`)
+            .get(`https://www.reddit.com/comments/${postId}/.json?raw_json=1`)
             .then(response => {
                 this.$emit('childToParent', response)
                 let overlay = document.getElementsByClassName('overlay')
@@ -49,6 +49,7 @@
                 overlay['0'].classList.add('is-open')
                 body.classList.add('modal-open')
                 body.classList.remove('modal-closed')
+                console.log(response)
             })
         }
     },

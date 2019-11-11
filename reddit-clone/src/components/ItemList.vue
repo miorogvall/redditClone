@@ -12,7 +12,7 @@
         :created="post.data.created_utc"
         :id="post.data.id"
         :parentData="post"
-        v-on:childToParent="onChildClick(post)"
+        v-on:childToParent="onChildClick(...arguments)"
       />
         <postModal :dataRecieved="fromChild"/>
     </div>
@@ -37,15 +37,15 @@ export default {
     }
   },
   methods: {
-    onChildClick (value) {
-      this.fromChild = value
-      var document = new DOMParser().parseFromString(value.data.selftext_html, "text/html");
-      value.data.selftext_html = document.body.textContent
-      return value;
+    onChildClick (response) {
+      console.log(response)
+      this.fromChild = response
+      var document = new DOMParser().parseFromString(response.data[0].data.children[0].data.selftext_html, "text/html");
+      response.data[0].data.children[0].data.selftext_html = document.body.textContent
+      return response;
     },
     setImage (imageSet) {
       let finalImage
-      console.log(imageSet)
       if(imageSet !== undefined) {
         finalImage = imageSet.images[0].source.url
         finalImage = finalImage.replace(/&amp;/g, '&');
