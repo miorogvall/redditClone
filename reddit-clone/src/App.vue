@@ -2,7 +2,7 @@
   <div id="app">
     <div id="previous" v-on:click="getData('before')" v-bind:class="{'active': this.count > 0,  'disabled': this.count == 0 }">
       <div class="flex-helper">
-        <p class="pagination-text">prev {{this.before}}</p>
+        <p class="pagination-text">prev</p>
       </div>
     </div>
     <div id="item-list">
@@ -28,7 +28,7 @@
     </div>
     <div id="next" v-on:click="getData('after')">
       <div class="flex-helper">
-        <p class="pagination-text">next {{this.after}}</p>
+        <p class="pagination-text">next</p>
       </div>
     </div>
     <div id="loader"></div>
@@ -223,10 +223,10 @@
           font-weight: bold;
           border: none;
           text-transform: uppercase;
-          font-size: 14px;
-          letter-spacing: 0.5px;
-          font-style: italic;
+          font-size: 15px;
+          letter-spacing: 1px;
           background: transparent;
+          font-family: "overwatch";
         }
 
         .arrow-down {
@@ -329,8 +329,7 @@ p, h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
     writing-mode: vertical-rl;
     text-orientation: upright;
-    font-size: 17px;
-    font-style: italic;
+    font-size: 20px;
     position: fixed;
     background: rgba(0, 0, 0, 0.2);
     color: $faded-red;
@@ -338,6 +337,7 @@ p, h1, h2, h3, h4, h5, h6 {
     will-change: opacity;
     text-transform: uppercase;
     z-index: 999999;
+    font-family: "overwatch";
 
     &.disabled {
       background: #151515;
@@ -356,11 +356,6 @@ p, h1, h2, h3, h4, h5, h6 {
       cursor: pointer;
       opacity: 0.75;
       padding: 0 28px;
-    }
-
-
-
-    .pagination-icon {
     }
   }
 
