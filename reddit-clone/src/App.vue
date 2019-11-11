@@ -52,7 +52,7 @@
         after: String,
         firstPage: Boolean,
         isLoading: Boolean,
-        count: 10,
+        count: 0,
         before: '',
         after: '',
         limit: 5,
@@ -99,7 +99,7 @@
                console.log(this.after, 'after before post')
                console.log(this.before, 'before before post')
               console.log('CURRENT BEFORE', this.before)
-              let url = `https://www.reddit.com/r/${this.subreddit}/hot/.json?limit=${this.limit}&count=${this.count}&before=${this.before}?raw_json=1`
+              let url = `https://www.reddit.com/r/${this.subreddit}/hot/.json?limit=${this.limit}&count=${this.count}&before=${this.before}&raw_json=1`
               axios.get(url).then(response => {
                   this.posts = response.data.data.children
                   this.after = response.data.data.after
@@ -279,28 +279,29 @@
           border: none;
           font-weight: 600;
           color: #20203c;
-          font-size: 25px;
+          font-size: 19px;
           width: 100%;
           border-bottom: 2px solid #ffe06d;
+          padding: 8px 11px;
+          padding-left: 0;
 
           &::placeholder {
             color: inherit;
             font-size: 14px;
-          }
-
-          &:focus {
-            background: $secondary-color;
+            color: #20203c52;
           }
         }
     }
   }
 
   a {
-    color: $secondary-color;
+    color: $faded-red;
     text-decoration: none;
-    border-bottom: 2px solid $main-color;
+    border-bottom: 2px solid $baby-blue;
     transition: all 0.05s ease;
     line-height: 25px;
+    padding: 3px;
+    padding-bottom: 0;
 
     &:hover {
       color: $secondary-color;

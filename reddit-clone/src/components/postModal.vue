@@ -69,7 +69,7 @@
               top: 0;
               bottom: 0;
               background: $secondary-color;
-              z-index: 1;
+              z-index: 99999999;
               overflow: auto;
               
               &.is-open {
@@ -111,7 +111,8 @@
                     margin: auto;
                     overflow: hidden;
                     padding-left: 10px;
-                    margin-top: 90px;
+                    margin-top: 110px;
+                    margin-bottom: 80px;
 
                     h1 {
                         span {
@@ -191,6 +192,10 @@
                     margin-top: 80px;
                     height: 400px;
                     outline: none;
+                }
+
+                .link {
+                    color: $white;
                 }
           }
       </style>
