@@ -25,7 +25,11 @@
                             <source :src="dataRecieved.data[0].data.children[0].data.media.reddit_video.fallback_url">
                         </video>
                     </div>
-                    <div v-if="this.dataRecieved.data[0].data.children[0].data.post_hint == 'link'" class="link" v-html="this.dataRecieved.data[0].data.children[0].data.media_embed.content"></div>
+                    <div v-if="this.dataRecieved.data[0].data.children[0].data.post_hint == 'link'" class="link">
+                        <video class="video" controls autoplay="true" loop="loop">
+                                <source :src="this.dataRecieved.data[0].data.children[0].data.preview.reddit_video_preview.fallback_url">
+                            </video>
+                    </div>
                     <div class="comments">
                         <div class="comments-header">comments</div>
                         <ul>
@@ -209,6 +213,8 @@
                     word-break: break-word;
                     color: $baby-blue;
                     line-height: 23px;
+                    margin-top: 70px;
+                    margin-bottom: 70px;
 
                     /deep/ p {
                         margin-top: 10px;
@@ -250,7 +256,8 @@
                 }
 
                 .media {
-                    margin-top: 50px;
+                    margin-top: 70px;
+                    margin-bottom: 70px;
                 }
                 .image {
                     margin: auto;
@@ -258,15 +265,21 @@
                     max-width: 700px;
                     max-height: 400px;
                     width: auto;
+                    margin-top: 70px;
+                    margin-bottom: 70px;
                 }
                 .video  {
                     margin-top: 80px;
                     height: 400px;
                     outline: none;
+                    margin-top: 70px;
+                    margin-bottom: 70px;
                 }
 
                 .link {
                     color: $white;
+                    margin-top: 70px;
+                    margin-bottom: 70px;
                 }
                 .comments {
                     width: 100%;
