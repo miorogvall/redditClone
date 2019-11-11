@@ -105,10 +105,8 @@
                   this.before = response.data.data.before
                 })
             }
-        },
-        transitionContent: function(elem) {
+            window.scroll(0,0)
         }
-
       },
     created () {
       axios
