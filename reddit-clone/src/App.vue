@@ -50,20 +50,19 @@
       return {
         posts: [],
         after: String,
-        firstPage: Boolean,
         isLoading: Boolean,
         count: 0,
         before: '',
         after: '',
         limit: 5,
-        subreddit: 'all'
+        subreddit: 'all',
       }
     },
     methods: {
       handleChange: function (e) {
 
         let input = document.querySelector('#subreddit-input')
-        clearTimeout(this.timeout);
+        this.count = 0;
         //arrow function to preserve correct reference to 'this'
         if(e.target.classList.contains('limit')) {
           this.limit = e.target.options[e.target.options.selectedIndex].value
@@ -80,6 +79,7 @@
           } else {
             this.subreddit = 'all'
           }
+          clearTimeout(this.timeout);
           this.timeout = setTimeout(() => {
               this.count = this.count = 0;
               let url = `https://www.reddit.com/r/${this.subreddit}/hot/.json?limit=${this.limit}&count=${this.count}&raw_json=1`
@@ -94,21 +94,25 @@
       },
         getData: function(hash){
             if(hash == 'before') {
-              if (this.count == 10 && this.count == 0) {
-                this.count = 0 
-              } else {
-                this.count = this.count -= 10;
-              }
+              console.log(this.count)
               console.log('CURRENT BEFORE', this.before)
+              if(!this.count <= 0) {
+                if (this.count <= 0) {
+                this.count = 0
+                console.log('zero')
+              } else {
+                this.count = this.count - parseInt(this.limit)
+                console.log(this.count)
+              }
               let url = `https://www.reddit.com/r/${this.subreddit}/hot/.json?limit=${this.limit}&count=${this.count}&before=${this.before}&raw_json=1`
               axios.get(url).then(response => {
                   this.posts = response.data.data.children
                   this.after = response.data.data.after
                   this.before = response.data.data.before
-                  
                 })
+              }
             } else {
-               this.count = this.count += 10;
+               this.count = parseInt(this.count) + parseInt(this.limit);
               let url = `https://www.reddit.com/r/${this.subreddit}/hot/.json?limit=${this.limit}&count=${this.count}&after=${this.after}&raw_json=1`
               axios.get(url).then(response => {
                   this.posts = response.data.data.children
@@ -121,9 +125,9 @@
       },
     created () {
       axios
-        .get(`https://www.reddit.com/r/${this.subreddit}.json?limit=${this.limit}&raw_json=1`)
+        .get(`https://www.reddit.com/r/${this.subreddit}.json?&count=0&limit=${this.limit}&raw_json=1`)
         .then(response => {
-          this.count = 10;
+          this.count = 0;
           this.posts = response.data.data.children
           this.after = response.data.data.after
           this.before = response.data.data.before
