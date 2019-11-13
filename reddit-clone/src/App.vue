@@ -13,14 +13,14 @@
             <span class="arrow-down"><i class="fas fa-chevron-down"></i></span>
             <select class="limit" @change="handleChange" name="limit">
               <option value="5">5</option>
-              <option value="10 entries">10</option>
-              <option value="25 entries">25</option>
+              <option value="10">10</option>
+              <option value="25">25</option>
             </select>
         </div>
       </div>
       <div class="data-box">
         <label for="subreddit">subreddit</label>
-        <input class="subreddit" type="text" @change="handleChange" name="subreddit" placeholder="subreddit">
+        <input class="subreddit" type="text" @keyup="handleChange" name="subreddit" placeholder="subreddit" id="subreddit-input">
       </div>
       </div>
 
@@ -61,10 +61,18 @@
     },
     methods: {
       handleChange: function (e) {
-        console.log('changed')
-        console.log(e.target.classList)
+
+        let input = document.querySelector('#subreddit-input')
+        clearTimeout(this.timeout);
+        //arrow function to preserve correct reference to 'this'
         if(e.target.classList.contains('limit')) {
-         this.limit = e.target.options[e.target.options.selectedIndex].value
+          this.limit = e.target.options[e.target.options.selectedIndex].value
+          let url = `https://www.reddit.com/r/${this.subreddit}/hot/.json?limit=${this.limit}&count=${this.count}&raw_json=1`
+          axios.get(url).then(response => {
+              this.posts = response.data.data.children
+              this.after = response.data.data.after
+              this.before = response.data.data.before
+            })
         }
         if(e.target.classList.contains('subreddit')) {
           if(e.target.value != '') {
@@ -72,14 +80,17 @@
           } else {
             this.subreddit = 'all'
           }
-        }
-               this.count = this.count = 0;
+          this.timeout = setTimeout(() => {
+              this.count = this.count = 0;
               let url = `https://www.reddit.com/r/${this.subreddit}/hot/.json?limit=${this.limit}&count=${this.count}&raw_json=1`
               axios.get(url).then(response => {
                   this.posts = response.data.data.children
                   this.after = response.data.data.after
                   this.before = response.data.data.before
                 })
+          }, 560);
+        }
+        
       },
         getData: function(hash){
             if(hash == 'before') {
