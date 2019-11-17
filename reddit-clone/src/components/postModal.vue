@@ -26,17 +26,27 @@
                         </video>
                     </div>
                     <div v-if="this.dataRecieved.data[0].data.children[0].data.post_hint == 'link'" class="link">
-                        <video class="video" controls autoplay="true" loop="loop">
-                                <source :src="this.dataRecieved.data[0].data.children[0].data.preview.reddit_video_preview.fallback_url">
-                            </video>
+                        <video 
+                        class="video" 
+                        controls 
+                        autoplay="true" 
+                        loop="loop" 
+                        v-if="this.dataRecieved.data[0].data.children[0].data.preview.reddit_video_preview !== undefined">
+                            <source :src="this.dataRecieved.data[0].data.children[0].data.preview.reddit_video_preview.fallback_url">
+                        </video>
                     </div>
                     <div class="comments">
-                        <div class="comments-header">comments</div>
+                        <div class="comments-header">comments below</div>
                         <ul>
                             <li class="listing" v-for="comment in dataRecieved.data[1].data.children">
                                 <div v-if="comment.kind !== 'more'" class="comment">
                                     <p class="author"><span class="author-name">{{comment.data.author}}</span> -  <span class="upvotes">{{comment.data.ups}} upvotes</span></p>
                                     <div class="text" v-html="comment.data.body_html"></div>
+                                    <tree-menu
+                                    :replyTree="comment.data.replies"
+                                    v-if="comment.data.replies !== undefined"
+                                    :depth="1"
+                                  ></tree-menu>
                                 </div>
                           </li>
                         </ul>
@@ -49,14 +59,19 @@
      
      
      <script>
+         import TreeMenu from './TreeMenu.vue'
+
         export default {
             name: 'postModal',
+            components: {
+                TreeMenu
+            },
             props: {
                 dataRecieved: Object,
             },
             data: function() {
                 return {
-                    baseUrl: 'https://www.reddit.com'
+                    baseUrl: 'https://www.reddit.com',
                 };
             },
             methods: {
@@ -112,8 +127,8 @@
               }
 
               .close {
-                position: absolute;
-                right: 0;
+                position: fixed;
+                right: 10px;
                 top: 0;
                 padding: 8px 18px;
                 background: $baby-blue;
@@ -309,7 +324,7 @@
                         list-style-type: none;
                         text-align: left;
                         color: #ffe06d;
-                        margin-bottom: 24px;
+                        margin-bottom: 17px;
 
                         .comment {
                             .author {
@@ -325,6 +340,7 @@
                                 margin-top: 4px;
                                 color: #c8d8f5;
                                 font-size: 14px;
+                                margin-bottom: 5px;
                             }
                         }
                     }
