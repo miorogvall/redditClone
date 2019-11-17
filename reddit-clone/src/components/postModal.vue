@@ -1,6 +1,6 @@
 <template>
         <div>
-            <div class="overlay is-closed" >
+            <div class="overlay is-closed">
                 <div class="wrapper" v-if="dataRecieved !== undefined">
                     <div class="item-title">
                         <h1><span>{{dataRecieved.data[0].data.children[0].data.title}}</span></h1>
@@ -15,7 +15,12 @@
                             </a>
                         </div>
                     </div>
-                  <div class="item-text" v-if="this.dataRecieved.data[0].data.children[0].data.selftext_html.length > 0 && this.dataRecieved.data[0].data.children[0].data.selftext_html !== 'null'" v-html="dataRecieved.data[0].data.children[0].data.selftext_html"></h1></div>
+                  <div 
+                    class="item-text" 
+                    v-if="this.dataRecieved.data[0].data.children[0].data.selftext_html.length > 0 && this.dataRecieved.data[0].data.children[0].data.selftext_html !== 'null'">
+                    <div v-html="dataRecieved.data[0].data.children[0].data.selftext_html"></div>
+
+                  </div>
                     <div class="media" v-if="this.dataRecieved.data[0].data.children[0].data.post_hint == 'rich:video'" v-html="this.dataRecieved.data[0].data.children[0].data.media.oembed.html"></div>
                    <div v-if="this.dataRecieved.data[0].data.children[0].data.post_hint == 'image'">
                         <img class="image" v-bind:src="dataRecieved.data[0].data.children[0].data.url">
@@ -25,13 +30,14 @@
                             <source :src="dataRecieved.data[0].data.children[0].data.media.reddit_video.fallback_url">
                         </video>
                     </div>
-                    <div v-if="this.dataRecieved.data[0].data.children[0].data.post_hint == 'link'" class="link">
+                    <div 
+                    v-if="this.dataRecieved.data[0].data.children[0].data.post_hint == 'link' && this.dataRecieved.data[0].data.children[0].data.preview.reddit_video_preview !== undefined" 
+                    class="link">
                         <video 
                         class="video" 
                         controls 
                         autoplay="true" 
-                        loop="loop" 
-                        v-if="this.dataRecieved.data[0].data.children[0].data.preview.reddit_video_preview !== undefined">
+                        loop="loop" >
                             <source :src="this.dataRecieved.data[0].data.children[0].data.preview.reddit_video_preview.fallback_url">
                         </video>
                     </div>
