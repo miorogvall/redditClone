@@ -89,7 +89,6 @@
                     overlay['0'].classList.remove('is-open')
                     body.classList.add('modal-closed')
                     body.classList.remove('modal-open')
-                    console.log(this.dataRecieved)
                     let video = document.querySelector('video.video')
                     let iframe = document.querySelector(".overlay iframe")
                     if (iframe) {
@@ -99,7 +98,6 @@
                     if (video) {
                         video.pause();
                     }
-                    console.log(this.dataRecieved)
                 },
             },
 }
