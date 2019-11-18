@@ -1,10 +1,13 @@
 <template>
-        <div class="tree-menu" v-if="replyTree !== undefined && replyTree.data !== undefined && replyTree.data.children[0].kind !== 'more'">
+        <div class="tree-menu" v-if="replyTree !== undefined && replyTree.data !== undefined">
             <div 
                 class="author-and-upvotes" 
                 v-if="replyTree.data !== undefined && replyTree.data.children[0].kind !== 'more'">
                 {{replyTree.data.children[0].data.author}} - {{replyTree.data.children[0].data.ups}} upvotes
             </div>
+            <div v-if="replyTree.data !== undefined && replyTree.data.children[0].kind == 'more'" v-on:click="moreComments(replyTree.data.children[0])">
+                MORE CONTENT
+        </div>
           <div v-if="replyTree.data !== undefined && replyTree.data !== undefined" v-html="replyTree.data.children[0].data.body_html"></div>
           <tree-menu
             v-for="reply in replyTree.data.children"
@@ -15,9 +18,22 @@
         </div>
       </template>
       <script>
+
+        import axios from 'axios'
+
         export default {
           props: ['replyTree', 'depth' ],
-          name: 'tree-menu'
+          name: 'tree-menu',
+          methods: {
+              moreComments: function(comment) {
+                  console.log(comment)
+                  let url = `https://www.reddit.com/api/morechildren?api_type=json&link_id=t3_482w7n&children=d0h7gs4`
+                axios.get(url).then(response => {
+                    console.log(response)
+                })
+
+              }
+          }
         }
         
       </script>

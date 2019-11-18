@@ -17,8 +17,8 @@
                     </div>
                   <div 
                     class="item-text" 
-                    v-if="this.dataRecieved.data[0].data.children[0].data.selftext_html.length > 0 && this.dataRecieved.data[0].data.children[0].data.selftext_html !== 'null'">
-                    <div v-html="getHTML(dataRecieved.data[0].data.children[0].data.selftext_html)"></div>
+                    v-if="this.dataRecieved.data[0].data.children[0].data.selftext_html !== 'null'">
+                    <div v-html="dataRecieved.data[0].data.children[0].data.selftext_html"></div>
 
                   </div>
                     <div class="media" v-if="this.dataRecieved.data[0].data.children[0].data.post_hint == 'rich:video'" v-html="this.dataRecieved.data[0].data.children[0].data.media.oembed.html"></div>
@@ -101,11 +101,6 @@
                     }
                     console.log(this.dataRecieved)
                 },
-                getHTML: function(value) {
-                    console.log(value)
-                    return value;
-                    
-                }
             },
 }
      </script>
