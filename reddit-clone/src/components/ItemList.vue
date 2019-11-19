@@ -40,8 +40,6 @@ export default {
     onChildClick (response) {
       console.log(response)
       this.fromChild = response
-      var document = new DOMParser().parseFromString(response.data[0].data.children[0].data.selftext_html, "text/html");
-      response.data[0].data.children[0].data.selftext_html = document.body.textContent
       return response;
     },
     setImage (imageSet) {
