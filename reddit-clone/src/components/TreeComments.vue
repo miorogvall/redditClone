@@ -34,7 +34,7 @@
         import axios from 'axios'
 
         export default {
-          props: ['replyTree', 'depth', 'replies' ],
+          props: ['replyTree', 'depth'],
           name: 'tree-comments',
           methods: {
               moreComments: function(comment) {
@@ -50,7 +50,8 @@
           },
           data() {
             return {
-                interactedWith: false
+                interactedWith: false,
+                replies: []
             }
         },
         }

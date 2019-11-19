@@ -17,12 +17,16 @@
                     </div>
                   <div 
                     class="item-text" 
-                    v-if="this.dataRecieved.data[0].data.children[0].data.selftext_html !== 'null'">
+                    v-if="this.dataRecieved.data[0].data.children[0].data.selftext_html !== 'null' && this.dataRecieved.data[0].data.children[0].data.selftext.length > 0">
                     <div v-html="dataRecieved.data[0].data.children[0].data.selftext_html"></div>
 
                   </div>
-                    <div class="media" v-if="this.dataRecieved.data[0].data.children[0].data.post_hint == 'rich:video'" v-html="this.dataRecieved.data[0].data.children[0].data.media.oembed.html"></div>
-                   <div v-if="this.dataRecieved.data[0].data.children[0].data.post_hint == 'image'">
+                    <div
+                        class="media"
+                        v-if="this.dataRecieved.data[0].data.children[0].data.post_hint == 'rich:video' && this.dataRecieved.data[0].data.children[0].data.media.oembed.html"
+                        v-html="this.dataRecieved.data[0].data.children[0].data.media.oembed.html">
+                    </div>
+                   <div v-if="this.dataRecieved.data[0].data.children[0].data.post_hint == 'image' && this.dataRecieved.data[0].data.children[0].data.url !== undefined">
                         <img class="image" v-bind:src="dataRecieved.data[0].data.children[0].data.url">
                     </div>
                     <div v-if="this.dataRecieved.data[0].data.children[0].data.post_hint == 'hosted:video'">
@@ -31,9 +35,9 @@
                         </video>
                     </div>
                     <div 
-                    v-if="this.dataRecieved.data[0].data.children[0].data.post_hint == 'link' && this.dataRecieved.data[0].data.children[0].data.preview.reddit_video_preview !== undefined" 
+                    v-if="this.dataRecieved.data[0].data.children[0].data.post_hint == 'link' && this.dataRecieved.data[0].data.children[0].data.preview.reddit_video_preview"
                     class="link">
-                        <video 
+                        <video
                         class="video" 
                         controls 
                         autoplay="true" 
