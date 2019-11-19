@@ -336,7 +336,7 @@
 
                         .comment {
                             border-left: 2px solid #2a2a44;
-                            padding-left: 20px;
+                            padding-left: 13px;
 
                             .author {
                                 font-style: italic;

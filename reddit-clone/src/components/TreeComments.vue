@@ -5,26 +5,32 @@
                     {{children.data.author}} | {{children.data.ups}} upvotes
                     <div class="text" v-html="children.data.body_html"></div>
                     <div v-if="children.data.replies.data !== undefined">
-                        <tree-comments
-                        v-for="children in children.data.replies.data.children"
-                        :replyTree="children.data.replies"
-                        :depth="depth + 1"
-                        >
-                        </tree-comments>
-                    </div>
-                </div>
-                <button v-if="replyTree.data !== undefined && replyTree.data.children[0].kind == 'more'" v-on:click="moreComments(replyTree.data.children[0])" class="see-replies" v-show="!interactedWith">More replies <b>[+]</b></button>
-                <div v-if="children.kind == 'more' && children !== undefined">
-                    <button v-if="replyTree.data.children[0].data.replies !== '' && replyTree.data.children[0].kind !== 'more'" v-on:click="moreComments(replyTree.data.children[0])" class="see-replies" v-show="!interactedWith">More replies <b>[+]</b></button>
-                    <div v-if="interactedWith && replies" class="attach-comments">
-                        <div class="reply-fetched" v-for="fetchedReply in replies">
+                        <div class="border" v-if="children.data.replies.data !== undefined && children.data.replies.data.children[0].data.author !== undefined">
                             <div class="author-and-upvotes">
-                                {{fetchedReply.author}}
-                                <div class="text" v-html="fetchedReply.body"></div>
+                                {{children.data.replies.data.children[0].data.author}} | {{children.data.replies.data.children[0].data.ups}} upvotes
                             </div>
+                            <div class="text" v-html="children.data.replies.data.children[0].data.body">
+                            </div>
+                            <tree-comments
+                            v-for="children in children.data.replies.data.children"
+                            :replyTree="children.data.replies"
+                            :depth="depth + 1"
+                            >
+                            </tree-comments>
                         </div>
                     </div>
                 </div>
+<!--                 <div v-if="children.kind == 'more' && children !== undefined" class="border">
+                        <button v-if="replyTree.data.children[0].data.replies !== '' && replyTree.data.children[0].kind !== 'more'" v-on:click="moreComments(replyTree.data.children[0])" class="see-replies" v-show="!interactedWith">More replies <b>[+]</b></button>
+                        <div v-if="interactedWith && replies" class="attach-comments border">
+                            <div class="reply-fetched" v-for="fetchedReply in replies">
+                                <div class="author-and-upvotes">
+                                    {{fetchedReply.author}}
+                                    <div class="text" v-html="fetchedReply.body"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
             </div>
     </div>
       </template>
@@ -36,10 +42,10 @@
           props: ['replyTree', 'replies', 'depth'],
           name: 'tree-comments',
           methods: {
-              moreComments: function(comment) {
+              moreComments: function(comment) { 
                   // using external proxy for get, see no danger since it removes the need for a proxy and backend server
                   // and its a simple get request. NEVER do this with sensitive data :)
-                let url = `https://api.pushshift.io/reddit/comment/search?raw_json=1&parent_id=${comment.data.parent_id}&limit=500`
+                let url = `https://api.pushshift.io/reddit/comment/search?raw_json=1&parent_id=${comment.data.name}&limit=500`
                 axios.get(url).then(response => {
                     this.interactedWith = !this.interactedWith
                     this.replies = response.data.data
@@ -136,6 +142,7 @@
                 transition: all 0.2s ease;
                 margin-top: 6px;
                 margin-bottom: 10px;
+                outline: none;
 
                 &:hover {
                     color: $secondary-color;
