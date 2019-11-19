@@ -335,6 +335,9 @@
                         margin-bottom: 17px;
 
                         .comment {
+                            border-left: 2px solid #2a2a44;
+                            padding-left: 20px;
+
                             .author {
                                 font-style: italic;
                                 color: #ffe06d;
