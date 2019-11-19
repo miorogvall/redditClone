@@ -46,13 +46,13 @@
                         <ul>
                             <li class="listing" v-for="comment in dataRecieved.data[1].data.children">
                                 <div v-if="comment.kind !== 'more'" class="comment">
-                                    <p class="author"><span class="author-name">{{comment.data.author}}</span> -  <span class="upvotes">{{comment.data.ups}} upvotes</span></p>
+                                    <p class="author"><span class="author-name">{{comment.data.author}}</span> | <span class="upvotes">{{comment.data.ups}} upvotes</span></p>
                                     <div class="text" v-html="comment.data.body_html"></div>
-                                    <tree-menu
+                                    <tree-comments
                                     :replyTree="comment.data.replies"
                                     v-if="comment.data.replies !== undefined"
                                     :depth="1"
-                                  ></tree-menu>
+                                  ></tree-comments>
                                 </div>
                           </li>
                         </ul>
@@ -65,12 +65,12 @@
      
      
      <script>
-         import TreeMenu from './TreeMenu.vue'
+         import TreeComments from './TreeComments.vue'
 
         export default {
             name: 'postModal',
             components: {
-                TreeMenu
+                TreeComments
             },
             props: {
                 dataRecieved: Object,

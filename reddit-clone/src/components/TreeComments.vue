@@ -1,18 +1,18 @@
 <template>
-        <div class="tree-menu" v-if="replyTree !== undefined && replyTree.data !== undefined">
+        <div class="tree-comments" v-if="replyTree !== undefined && replyTree.data !== undefined">
             <div 
                 class="author-and-upvotes" 
                 v-if="replyTree.data !== undefined && replyTree.data.children[0].kind !== 'more'">
-                {{replyTree.data.children[0].data.author}} - {{replyTree.data.children[0].data.ups}} upvotes
+                {{replyTree.data.children[0].data.author}} | {{replyTree.data.children[0].data.ups}} upvotes
             </div>
             <div v-if="replyTree.data !== undefined && replyTree.data.children[0].kind == 'more'" v-on:click="moreComments(replyTree.data.children[0])">
                 <button class="see-replies" v-on:click="interactedWith = !interactedWith" v-show="!interactedWith">More replies <b>[+]</b></button>
                 <div v-if="this.replies !== undefined">
                     <div v-for="reply in this.replies">
-                        <div class="tree-menu">
+                        <div class="tree-comments">
                             <div class="replies">
                                 <div class="author-and-upvotes">
-                                    {{reply.author}} - {{reply.score}} upvotes
+                                    {{reply.author}} | {{reply.score}} upvotes
                                 </div>
                             <div v-html="reply.body"></div>
                             </div>
@@ -21,12 +21,12 @@
                 </div>
         </div>
           <div v-if="replyTree.data !== undefined && replyTree.data !== undefined" v-html="replyTree.data.children[0].data.body_html"></div>
-          <tree-menu
+          <tree-comments
             v-for="reply in replyTree.data.children"
             :replyTree="reply.data.replies"
             :depth="depth + 1"
           >
-          </tree-menu>
+          </tree-comments>
         </div>
       </template>
       <script>
@@ -35,7 +35,7 @@
 
         export default {
           props: ['replyTree', 'depth', 'replies' ],
-          name: 'tree-menu',
+          name: 'tree-comments',
           methods: {
               moreComments: function(comment) {
                   // using external proxy for get, see no danger since it removes the need for a proxy and backend server
@@ -67,11 +67,11 @@
         $baby-blue: #c8d8f5;
         $thread-color: #2a2a44;
 
-        .comment > .tree-menu {
+        .comment > .tree-comments {
             margin-left: 0px;
         }
 
-        .tree-menu {
+        .tree-comments {
             border-left: 1.5px solid $thread-color;
             padding-left: 13px;
             margin-left: 10px;
