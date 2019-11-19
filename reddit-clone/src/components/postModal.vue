@@ -1,6 +1,6 @@
 <template>
         <div>
-            <div class="overlay is-closed">
+            <div class="overlay is-closed" >
                 <div class="wrapper" v-if="dataRecieved !== undefined">
                     <div class="item-title">
                         <h1><span>{{dataRecieved.data[0].data.children[0].data.title}}</span></h1>
@@ -15,18 +15,9 @@
                             </a>
                         </div>
                     </div>
-                  <div 
-                    class="item-text" 
-                    v-if="this.dataRecieved.data[0].data.children[0].data.selftext_html !== 'null' && this.dataRecieved.data[0].data.children[0].data.selftext.length > 0">
-                    <div v-html="dataRecieved.data[0].data.children[0].data.selftext_html"></div>
-
-                  </div>
-                    <div
-                        class="media"
-                        v-if="this.dataRecieved.data[0].data.children[0].data.post_hint == 'rich:video' && this.dataRecieved.data[0].data.children[0].data.media.oembed.html"
-                        v-html="this.dataRecieved.data[0].data.children[0].data.media.oembed.html">
-                    </div>
-                   <div v-if="this.dataRecieved.data[0].data.children[0].data.post_hint == 'image' && this.dataRecieved.data[0].data.children[0].data.url !== undefined">
+                  <div class="item-text" v-if="this.dataRecieved.data[0].data.children[0].data.selftext_html.length > 0 && this.dataRecieved.data[0].data.children[0].data.selftext_html !== 'null'" v-html="dataRecieved.data[0].data.children[0].data.selftext_html"></h1></div>
+                    <div class="media" v-if="this.dataRecieved.data[0].data.children[0].data.post_hint == 'rich:video'" v-html="this.dataRecieved.data[0].data.children[0].data.media.oembed.html"></div>
+                   <div v-if="this.dataRecieved.data[0].data.children[0].data.post_hint == 'image'">
                         <img class="image" v-bind:src="dataRecieved.data[0].data.children[0].data.url">
                     </div>
                     <div v-if="this.dataRecieved.data[0].data.children[0].data.post_hint == 'hosted:video'">
@@ -34,29 +25,18 @@
                             <source :src="dataRecieved.data[0].data.children[0].data.media.reddit_video.fallback_url">
                         </video>
                     </div>
-                    <div 
-                    v-if="this.dataRecieved.data[0].data.children[0].data.post_hint == 'link' && this.dataRecieved.data[0].data.children[0].data.preview.reddit_video_preview"
-                    class="link">
-                        <video
-                        class="video" 
-                        controls 
-                        autoplay="true" 
-                        loop="loop" >
-                            <source :src="this.dataRecieved.data[0].data.children[0].data.preview.reddit_video_preview.fallback_url">
-                        </video>
+                    <div v-if="this.dataRecieved.data[0].data.children[0].data.post_hint == 'link'" class="link">
+                        <video class="video" controls autoplay="true" loop="loop">
+                                <source :src="this.dataRecieved.data[0].data.children[0].data.preview.reddit_video_preview.fallback_url">
+                            </video>
                     </div>
                     <div class="comments">
-                        <div class="comments-header">comments below</div>
+                        <div class="comments-header">comments</div>
                         <ul>
                             <li class="listing" v-for="comment in dataRecieved.data[1].data.children">
                                 <div v-if="comment.kind !== 'more'" class="comment">
-                                    <p class="author"><span class="author-name">{{comment.data.author}}</span> | <span class="upvotes">{{comment.data.ups}} upvotes</span></p>
+                                    <p class="author"><span class="author-name">{{comment.data.author}}</span> -  <span class="upvotes">{{comment.data.ups}} upvotes</span></p>
                                     <div class="text" v-html="comment.data.body_html"></div>
-                                    <tree-comments
-                                    :replyTree="comment.data.replies"
-                                    v-if="comment.data.replies !== undefined"
-                                    :depth="1"
-                                  ></tree-comments>
                                 </div>
                           </li>
                         </ul>
@@ -69,19 +49,14 @@
      
      
      <script>
-         import TreeComments from './TreeComments.vue'
-
         export default {
             name: 'postModal',
-            components: {
-                TreeComments
-            },
             props: {
                 dataRecieved: Object,
             },
             data: function() {
                 return {
-                    baseUrl: 'https://www.reddit.com',
+                    baseUrl: 'https://www.reddit.com'
                 };
             },
             methods: {
@@ -93,6 +68,7 @@
                     overlay['0'].classList.remove('is-open')
                     body.classList.add('modal-closed')
                     body.classList.remove('modal-open')
+                    console.log(this.dataRecieved)
                     let video = document.querySelector('video.video')
                     let iframe = document.querySelector(".overlay iframe")
                     if (iframe) {
@@ -102,7 +78,8 @@
                     if (video) {
                         video.pause();
                     }
-                },
+                    console.log(this.dataRecieved)
+                }
             },
 }
      </script>
@@ -135,8 +112,8 @@
               }
 
               .close {
-                position: fixed;
-                right: 10px;
+                position: absolute;
+                right: 0;
                 top: 0;
                 padding: 8px 18px;
                 background: $baby-blue;
@@ -332,12 +309,9 @@
                         list-style-type: none;
                         text-align: left;
                         color: #ffe06d;
-                        margin-bottom: 17px;
+                        margin-bottom: 24px;
 
                         .comment {
-                            border-left: 2px solid #2a2a44;
-                            padding-left: 13px;
-
                             .author {
                                 font-style: italic;
                                 color: #ffe06d;
@@ -351,7 +325,6 @@
                                 margin-top: 4px;
                                 color: #c8d8f5;
                                 font-size: 14px;
-                                margin-bottom: 5px;
                             }
                         }
                     }
