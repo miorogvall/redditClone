@@ -1,6 +1,6 @@
 <template>
         <div>
-            <div class="overlay is-closed" >
+            <div class="overlay is-closed">
                 <div class="wrapper" v-if="dataRecieved !== undefined">
                     <div class="item-title">
                         <h1><span>{{dataRecieved.data[0].data.children[0].data.title}}</span></h1>
@@ -15,9 +15,18 @@
                             </a>
                         </div>
                     </div>
-                  <div class="item-text" v-if="this.dataRecieved.data[0].data.children[0].data.selftext_html.length > 0 && this.dataRecieved.data[0].data.children[0].data.selftext_html !== 'null'" v-html="dataRecieved.data[0].data.children[0].data.selftext_html"></h1></div>
-                    <div class="media" v-if="this.dataRecieved.data[0].data.children[0].data.post_hint == 'rich:video'" v-html="this.dataRecieved.data[0].data.children[0].data.media.oembed.html"></div>
-                   <div v-if="this.dataRecieved.data[0].data.children[0].data.post_hint == 'image'">
+                  <div 
+                    class="item-text" 
+                    v-if="this.dataRecieved.data[0].data.children[0].data.selftext_html !== 'null' && this.dataRecieved.data[0].data.children[0].data.selftext.length > 0">
+                    <div v-html="dataRecieved.data[0].data.children[0].data.selftext_html"></div>
+
+                  </div>
+                    <div
+                        class="media"
+                        v-if="this.dataRecieved.data[0].data.children[0].data.post_hint == 'rich:video' && this.dataRecieved.data[0].data.children[0].data.media.oembed.html"
+                        v-html="this.dataRecieved.data[0].data.children[0].data.media.oembed.html">
+                    </div>
+                   <div v-if="this.dataRecieved.data[0].data.children[0].data.post_hint == 'image' && this.dataRecieved.data[0].data.children[0].data.url !== undefined">
                         <img class="image" v-bind:src="dataRecieved.data[0].data.children[0].data.url">
                     </div>
                     <div v-if="this.dataRecieved.data[0].data.children[0].data.post_hint == 'hosted:video'">
@@ -25,13 +34,14 @@
                             <source :src="dataRecieved.data[0].data.children[0].data.media.reddit_video.fallback_url">
                         </video>
                     </div>
-                    <div v-if="this.dataRecieved.data[0].data.children[0].data.post_hint == 'link'" class="link">
-                        <video 
+                    <div 
+                    v-if="this.dataRecieved.data[0].data.children[0].data.post_hint == 'link' && this.dataRecieved.data[0].data.children[0].data.preview.reddit_video_preview"
+                    class="link">
+                        <video
                         class="video" 
                         controls 
                         autoplay="true" 
-                        loop="loop" 
-                        v-if="this.dataRecieved.data[0].data.children[0].data.preview.reddit_video_preview !== undefined">
+                        loop="loop" >
                             <source :src="this.dataRecieved.data[0].data.children[0].data.preview.reddit_video_preview.fallback_url">
                         </video>
                     </div>
@@ -40,13 +50,13 @@
                         <ul>
                             <li class="listing" v-for="comment in dataRecieved.data[1].data.children">
                                 <div v-if="comment.kind !== 'more'" class="comment">
-                                    <p class="author"><span class="author-name">{{comment.data.author}}</span> -  <span class="upvotes">{{comment.data.ups}} upvotes</span></p>
+                                    <p class="author"><span class="author-name">{{comment.data.author}}</span> | <span class="upvotes">{{comment.data.ups}} upvotes</span></p>
                                     <div class="text" v-html="comment.data.body_html"></div>
-                                    <tree-menu
+                                    <tree-comments
                                     :replyTree="comment.data.replies"
                                     v-if="comment.data.replies !== undefined"
                                     :depth="1"
-                                  ></tree-menu>
+                                  ></tree-comments>
                                 </div>
                           </li>
                         </ul>
@@ -59,12 +69,12 @@
      
      
      <script>
-         import TreeMenu from './TreeMenu.vue'
+         import TreeComments from './TreeComments.vue'
 
         export default {
             name: 'postModal',
             components: {
-                TreeMenu
+                TreeComments
             },
             props: {
                 dataRecieved: Object,
@@ -83,7 +93,6 @@
                     overlay['0'].classList.remove('is-open')
                     body.classList.add('modal-closed')
                     body.classList.remove('modal-open')
-                    console.log(this.dataRecieved)
                     let video = document.querySelector('video.video')
                     let iframe = document.querySelector(".overlay iframe")
                     if (iframe) {
@@ -93,8 +102,7 @@
                     if (video) {
                         video.pause();
                     }
-                    console.log(this.dataRecieved)
-                }
+                },
             },
 }
      </script>
@@ -327,6 +335,9 @@
                         margin-bottom: 17px;
 
                         .comment {
+                            border-left: 2px solid #2a2a44;
+                            padding-left: 13px;
+
                             .author {
                                 font-style: italic;
                                 color: #ffe06d;
