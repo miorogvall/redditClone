@@ -22,3 +22,6 @@ The app was build and tested on Chrome and Windows 10 OS. I recommend using this
 1. Typing a subreddit in search will reload the page after you've stopped typing.<br>
 2. Changing the amount of posts visible will reload the feed.<br>
 3. Getting the previous page will be grayed out if you are on the first page already<br>
+
+#About
+It was build in vue using sass and components. css for the components is in the component file.
