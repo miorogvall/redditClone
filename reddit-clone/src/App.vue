@@ -98,15 +98,12 @@ export default {
     },
     getData: function (hash) {
       if (hash == 'before') {
-        console.log(this.count)
-        console.log('CURRENT BEFORE', this.before)
+
         if (!this.count <= 0) {
           if (this.count <= 0) {
             this.count = 0
-            console.log('zero')
           } else {
             this.count = this.count - parseInt(this.limit)
-            console.log(this.count)
           }
           let url = `https://www.reddit.com/r/${this.subreddit}/hot/.json?limit=${this.limit}&count=${this.count}&before=${this.before}&raw_json=1`
           axios.get(url).then(response => {
@@ -135,13 +132,10 @@ export default {
         this.posts = response.data.data.children
         this.after = response.data.data.after
         this.before = response.data.data.before
-        console.log(this.before)
-        console.log(this.after)
         this.isLoading = false;
       }),
 
     axios.interceptors.request.use(config => {
-      console.log('csacsacsadasd')
       this.isLoading = true;
       return config
     }, function (error) {
@@ -150,7 +144,6 @@ export default {
     })
 
     axios.interceptors.response.use(response => {
-      console.log('csacsac')
       this.isLoading = false;
       return response
     }, function (error) {

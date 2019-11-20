@@ -38,8 +38,6 @@ export default {
     emitToParent (event) {
       let item = this.$refs.chosenItem
       let postId = item.dataset.id
-      console.log(postId)
-      console.log('emitToParent')
       axios
         .get(`https://www.reddit.com/comments/${postId}/.json?raw_json=1`)
         .then(response => {
@@ -50,7 +48,6 @@ export default {
           overlay['0'].classList.add('is-open')
           body.classList.add('modal-open')
           body.classList.remove('modal-closed')
-          console.log(response)
         })
     }
   },

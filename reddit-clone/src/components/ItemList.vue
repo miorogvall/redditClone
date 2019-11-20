@@ -38,7 +38,6 @@ export default {
   },
   methods: {
     onChildClick (response) {
-      console.log(response)
       this.fromChild = response
       return response
     },
