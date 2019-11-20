@@ -9,8 +9,9 @@
         <imageContent :data="singlePost.data"/>
       </div>
 
-      <div v-if="postType == 'link' && singlePost.data.preview.reddit_video_preview !== undefined && singlePost.data.preview.reddit_video_preview.fallback_url !== undefined">
+      <div v-if="postType == 'link'">
         <linkContent :data="singlePost.data"/>
+        xx
       </div>
 
       <div v-if="postType == 'rich:video' && singlePost.data.media.oembed.html">

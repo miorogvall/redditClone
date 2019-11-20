@@ -1,12 +1,18 @@
 <template>
-    <div class="link" v-if="data.preview.reddit_video_preview !== undefined && data.preview.reddit_video_preview.fallback_url !== undefined">
-        <video
-        class="video"
-        controls
-        autoplay="true"
-        loop="loop">
-            <source :src="data.preview.reddit_video_preview.fallback_url">
-        </video>
+    <div>
+        <div class="link" v-if="data.preview.reddit_video_preview !== undefined && data.preview.reddit_video_preview.fallback_url !== undefined">
+            <video
+            class="video"
+            controls
+            autoplay="true"
+            loop="loop">
+                <source :src="data.preview.reddit_video_preview.fallback_url">
+            </video>
+            
+        </div>
+        <div class="link" v-if="data.preview.images[0].source.url !== undefined">
+            <img class="image" :src="data.preview.images[0].source.url">
+        </div>
     </div>
 </template>
 <script>
@@ -33,6 +39,10 @@ export default {
 
     .video {
         max-height: 400px;
+    }
+
+    .image {
+        max-height: 500px;
     }
 
 </style>
