@@ -25,14 +25,6 @@ export default {
 
     @import "../../../scss/_variables.scss";
 
-    .video  {
-            margin-top: 80px;
-            height: 400px;
-            outline: none;
-            margin-top: 70px;
-            margin-bottom: 70px;
-        }
-
     .link {
         color: $white;
         margin-top: 70px;

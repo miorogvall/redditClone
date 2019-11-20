@@ -1,5 +1,14 @@
 <template>
   <div id="app">
+    <div class="loader" v-if="isLoading">
+      <div class="showbox">
+          <div class="spinner">
+            <svg class="circular" viewBox="25 25 50 50">
+              <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="5" stroke-miterlimit="10"/>
+            </svg>
+          </div>
+        </div>
+    </div>
     <div id="previous" v-on:click="getData('before')" v-bind:class="{'active': this.count > 0,  'disabled': this.count == 0 }">
       <div class="flex-helper">
         <p class="pagination-text">prev</p>
@@ -49,7 +58,7 @@ export default {
     return {
       posts: [],
       after: String,
-      isLoading: Boolean,
+      isLoading: true,
       count: 0,
       before: '',
       limit: 5,
@@ -83,7 +92,6 @@ export default {
             this.posts = response.data.data.children
             this.after = response.data.data.after
             this.before = response.data.data.before
-            window.scroll(0, 0)
           })
         }, 560)
       }
@@ -129,9 +137,12 @@ export default {
         this.before = response.data.data.before
         console.log(this.before)
         console.log(this.after)
+        this.isLoading = false;
       }),
 
     axios.interceptors.request.use(config => {
+      console.log('csacsacsadasd')
+      this.isLoading = true;
       return config
     }, function (error) {
       // Do something with request error
@@ -139,6 +150,8 @@ export default {
     })
 
     axios.interceptors.response.use(response => {
+      console.log('csacsac')
+      this.isLoading = false;
       return response
     }, function (error) {
       return Promise.reject(error)
@@ -314,6 +327,98 @@ p, h1, h2, h3, h4, h5, h6 {
   flex-direction: row;
   background: $secondary-color;
 
+  .loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    background: #1b1b23;
+    z-index: 9999999999;
+    cursor: wait;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .spinner {
+      position: relative;
+      margin: 0 auto;
+      width: 100px;
+        &:before {
+          content: '';
+          display: block;
+          padding-top: 100%;
+        }
+        .circular {
+          animation: rotate 1.5s linear infinite;
+          height: 100%;
+          transform-origin: center center;
+          width: 100%;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          margin: auto;
+        }
+
+        .path {
+          stroke-dasharray: 1, 200;
+          stroke-dashoffset: 0;
+          animation: dash 1.5s ease-in-out infinite, color 3s ease-in-out infinite;
+          stroke-linecap: round;
+        }
+
+        @keyframes rotate {
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+
+        @keyframes dash {
+          0% {
+            stroke-dasharray: 1, 200;
+            stroke-dashoffset: 0;
+          }
+          50% {
+            stroke-dasharray: 89, 200;
+            stroke-dashoffset: -35px;
+          }
+          100% {
+            stroke-dasharray: 89, 200;
+            stroke-dashoffset: -124px;
+          }
+        }
+
+        @keyframes color {
+          100%,
+          0% {
+            stroke: $main-color;
+          }
+          40% {
+            stroke: $faded-red;
+          }
+          66% {
+            stroke: $baby-blue;
+          }
+          80%,
+          90% {
+            stroke: $thread-color;
+          }
+      }
+      .showbox {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 5%;
+      }
+}
+
+  }
+
   #previous {
     position: fixed;
     left: 0;
@@ -362,33 +467,8 @@ p, h1, h2, h3, h4, h5, h6 {
     }
   }
 
-  #loader.loading {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: red;
-    opacity: 1;
-  }
-
-  #loader {
-    pointer-events: none;
-    opacity: 0;
-  }
-
   #item-list {
     flex: 1 0 auto;
   }
-  @keyframes gradientBG {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
-}
-
 }
 </style>
