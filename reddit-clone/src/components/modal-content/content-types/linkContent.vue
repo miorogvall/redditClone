@@ -31,4 +31,8 @@ export default {
         margin-bottom: 70px;
     }
 
+    .video {
+        max-height: 400px;
+    }
+
 </style>
