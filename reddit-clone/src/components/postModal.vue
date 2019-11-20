@@ -8,7 +8,7 @@
                         <div class="link-section">
                             <a :href="dataRecieved.data[0].data.children[0].data.url" target="_blank" v-if="dataRecieved.data[0].data.children[0].data.permalink !== null">
                                 <span><p class="link-text">view linked URL</p><i class="fas fa-external-link-square"></i></span>
-                                
+
                             </a>
                             <a :href="baseUrl + dataRecieved.data[0].data.children[0].data.permalink" target="_blank">
                                 <span><p class="link-text">view on reddit</p><i class="fab fa-reddit-alien"></i></span>
@@ -39,51 +39,50 @@
             </div>
         </div>
      </template>
-     
-     
-     <script>
-         import TreeComments from './TreeComments.vue'
-         import postContent from './modal-content/postContent.vue'
 
-        export default {
-            name: 'postModal',
-            components: {
-                TreeComments,
-                postContent
-            },
-            props: {
-                dataRecieved: Object,
-            },
-            data: function() {
-                return {
-                    baseUrl: 'https://www.reddit.com',
-                };
-            },
-            methods: {
-                closeModal: function(event) {
-                    // provisional solution, not proud of it...
-                    let overlay = document.getElementsByClassName('overlay')
-                    let body = document.getElementById('body')
-                    overlay['0'].classList.add('is-closed')
-                    overlay['0'].classList.remove('is-open')
-                    body.classList.add('modal-closed')
-                    body.classList.remove('modal-open')
-                    let video = document.querySelector('video.video')
-                    let iframe = document.querySelector(".overlay iframe")
-                    if (iframe) {
-                        var iframeSrc = iframe.src;
-                        iframe.src = iframeSrc;
-                    }
-                    if (video) {
-                        video.pause();
-                    }
-                },
-            },
+<script>
+import TreeComments from './TreeComments.vue'
+import postContent from './modal-content/postContent.vue'
+
+export default {
+  name: 'postModal',
+  components: {
+    TreeComments,
+    postContent
+  },
+  props: {
+    dataRecieved: Object
+  },
+  data: function () {
+    return {
+      baseUrl: 'https://www.reddit.com'
+    }
+  },
+  methods: {
+    closeModal: function (event) {
+      // provisional solution, not proud of it...
+      let overlay = document.getElementsByClassName('overlay')
+      let body = document.getElementById('body')
+      overlay['0'].classList.add('is-closed')
+      overlay['0'].classList.remove('is-open')
+      body.classList.add('modal-closed')
+      body.classList.remove('modal-open')
+      let video = document.querySelector('video.video')
+      let iframe = document.querySelector('.overlay iframe')
+      if (iframe) {
+        var iframeSrc = iframe.src
+        iframe.src = iframeSrc
+      }
+      if (video) {
+        video.pause()
+      }
+    }
+  }
 }
-     </script>
-    
+</script>
+
       <style scoped lang="scss">
-          
+
           @import "../scss/_variables.scss";
 
           .overlay{
@@ -95,7 +94,7 @@
               background: $secondary-color;
               z-index: 99999999;
               overflow: auto;
-              
+
               &.is-open {
                 display: block;
               }
@@ -122,7 +121,6 @@
                     background-color: $faded-red;
 
                 }
-
 
               }
           }

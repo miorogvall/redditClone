@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div 
-        class="item-text" 
+        <div
+        class="item-text"
         v-if="singlePost.data.selftext_html !== 'null' && singlePost.data.selftext.length > 0">
         <div v-html="singlePost.data.selftext_html"></div>
       </div>
@@ -26,28 +26,27 @@
 </template>
 <script>
 
-  import mediaContent from './content-types/mediaContent.vue'
-  import linkContent from './content-types/linkContent.vue'
-  import imageContent from './content-types/imageContent.vue'
-  import videoContent from './content-types/videoContent.vue'
+import mediaContent from './content-types/mediaContent.vue'
+import linkContent from './content-types/linkContent.vue'
+import imageContent from './content-types/imageContent.vue'
+import videoContent from './content-types/videoContent.vue'
 
-  import axios from 'axios'
-  export default {
-    name: 'postContent',
-    components: {
-      mediaContent,
-      linkContent,
-      videoContent,
-      imageContent
-      },
-    props: {
-      singlePost: Object,
-      postType: String
-    },
+export default {
+  name: 'postContent',
+  components: {
+    mediaContent,
+    linkContent,
+    videoContent,
+    imageContent
+  },
+  props: {
+    singlePost: Object,
+    postType: String
   }
+}
 
 </script>
-    
+
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 

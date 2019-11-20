@@ -14,70 +14,69 @@
         </div>
     </div>
 </template>
-  <script>
+<script>
 
-  import axios from 'axios'
-  export default {
-    name: 'Item',
-    props: {
-      title: String,
-      thumbnail: String,
-      created: Number,
-      commentNumber: Number,
-      author:String,
-      score:Number,
-      permalink:String,
-      id:String,
-      parentData: Object,
-      stringProp: String,
-      title: String,
-      childMessage: Object
+import axios from 'axios'
+export default {
+  name: 'Item',
+  props: {
+    thumbnail: String,
+    created: Number,
+    commentNumber: Number,
+    author: String,
+    score: Number,
+    permalink: String,
+    id: String,
+    parentData: Object,
+    stringProp: String,
+    title: String,
+    childMessage: Object
+  },
+  methods: {
+    emitToParent (event) {
+      let item = this.$refs.chosenItem
+      let postId = item.dataset.id
+      console.log(postId)
+      console.log('emitToParent')
+      axios
+        .get(`https://www.reddit.com/comments/${postId}/.json?raw_json=1`)
+        .then(response => {
+          this.$emit('childToParent', response)
+          let overlay = document.getElementsByClassName('overlay')
+          let body = document.getElementById('body')
+          overlay['0'].classList.remove('is-closed')
+          overlay['0'].classList.add('is-open')
+          body.classList.add('modal-open')
+          body.classList.remove('modal-closed')
+          console.log(response)
+        })
+    }
+  },
+  computed: {
+    convertFromUnix () {
+      let options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: 'numeric', minute: 'numeric' }
+      let timestamp = new Date(this.created * 1000).toLocaleDateString('SE-se', options).replace(/\//g, '-')
+      return timestamp
     },
-    methods: {
-        emitToParent(event) {
-            let item = this.$refs.chosenItem
-            let postId = item.dataset.id
-            console.log(postId)
-            console.log('emitToParent')
-            axios
-            .get(`https://www.reddit.com/comments/${postId}/.json?raw_json=1`)
-            .then(response => {
-                this.$emit('childToParent', response)
-                let overlay = document.getElementsByClassName('overlay')
-                let body = document.getElementById('body')
-                overlay['0'].classList.remove('is-closed')
-                overlay['0'].classList.add('is-open')
-                body.classList.add('modal-open')
-                body.classList.remove('modal-closed')
-                console.log(response)
-            })
-        }
-    },
-    computed: {
-        convertFromUnix() {
-            let options = {year: 'numeric', month: '2-digit', day: '2-digit', hour: 'numeric', minute: 'numeric' };
-            let timestamp = new Date(this.created*1000).toLocaleDateString('SE-se', options).replace(/\//g, '-');
-            return timestamp
-        },
-        shortenUpvotesFormat () {
-            let upvotes = this.score
-            let upvoteString = upvotes.toString()
+    shortenUpvotesFormat () {
+      let upvotes = this.score
+      let upvoteString = upvotes.toString()
 
-            if(upvoteString.length < 4) {
-                let format = upvotes
-                return format
-            } else if(upvoteString.length >= 4) {
-                if(upvoteString.substring(3,4) === "0") {
-                    let format = `${upvoteString.substring(0,2)}k`
-                    return format
-                } else {
-                    let format = `${upvoteString.substring(0,2)}.${upvoteString.substring(3,4)}k`
-                    return format
-                }
-            }
+      if (upvoteString.length < 4) {
+        let format = upvotes
+        return format
+      } else if (upvoteString.length >= 4) {
+        if (upvoteString.substring(3, 4) === '0') {
+          let format = `${upvoteString.substring(0, 2)}k`
+          return format
+        } else {
+          let format = `${upvoteString.substring(0, 2)}.${upvoteString.substring(3, 4)}k`
+          return format
         }
+      }
     }
   }
+}
 
 </script>
 
@@ -175,7 +174,6 @@
             margin-left: 30px;
             font-weight: 600;
             color: $baby-blue;
-            
 
             span {
                 border-bottom: 2px solid $faded-red;

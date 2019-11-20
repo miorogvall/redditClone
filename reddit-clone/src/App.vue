@@ -36,119 +36,114 @@
 </template>
 
 <script>
-  // @ is an alias to /src
-  import ItemList from '@/components/ItemList.vue'
-  import Item from '@/components/Item.vue'
-  import axios from 'axios'
+// @ is an alias to /src
+import ItemList from '@/components/ItemList.vue'
+import axios from 'axios'
 
-  export default {
-    name: 'App',
-    components: {
-      ItemList
-    },
-    data() {
-      return {
-        posts: [],
-        after: String,
-        isLoading: Boolean,
-        count: 0,
-        before: '',
-        after: '',
-        limit: 5,
-        subreddit: 'all',
-      }
-    },
-    methods: {
-      handleChange: function (e) {
-
-        let input = document.querySelector('#subreddit-input')
-        this.count = 0;
-        //arrow function to preserve correct reference to 'this'
-        if(e.target.classList.contains('limit')) {
-          this.limit = e.target.options[e.target.options.selectedIndex].value
-          let url = `https://www.reddit.com/r/${this.subreddit}/hot/.json?limit=${this.limit}&count=${this.count}&raw_json=1`
-          axios.get(url).then(response => {
-              this.posts = response.data.data.children
-              this.after = response.data.data.after
-              this.before = response.data.data.before
-            })
-        }
-        if(e.target.classList.contains('subreddit')) {
-          if(e.target.value != '') {
-          this.subreddit = e.target.value
-          } else {
-            this.subreddit = 'all'
-          }
-          clearTimeout(this.timeout);
-          this.timeout = setTimeout(() => {
-              this.count = this.count = 0;
-              let url = `https://www.reddit.com/r/${this.subreddit}/hot/.json?limit=${this.limit}&count=${this.count}&raw_json=1`
-              axios.get(url).then(response => {
-                  this.posts = response.data.data.children
-                  this.after = response.data.data.after
-                  this.before = response.data.data.before
-                  window.scroll(0,0)
-                })
-          }, 560);
-        }
-        
-      },
-        getData: function(hash){
-            if(hash == 'before') {
-              console.log(this.count)
-              console.log('CURRENT BEFORE', this.before)
-              if(!this.count <= 0) {
-                if (this.count <= 0) {
-                this.count = 0
-                console.log('zero')
-              } else {
-                this.count = this.count - parseInt(this.limit)
-                console.log(this.count)
-              }
-              let url = `https://www.reddit.com/r/${this.subreddit}/hot/.json?limit=${this.limit}&count=${this.count}&before=${this.before}&raw_json=1`
-              axios.get(url).then(response => {
-                  this.posts = response.data.data.children
-                  this.after = response.data.data.after
-                  this.before = response.data.data.before
-                })
-              }
-            } else {
-               this.count = parseInt(this.count) + parseInt(this.limit);
-              let url = `https://www.reddit.com/r/${this.subreddit}/hot/.json?limit=${this.limit}&count=${this.count}&after=${this.after}&raw_json=1`
-              axios.get(url).then(response => {
-                  this.posts = response.data.data.children
-                  this.after = response.data.data.after
-                  this.before = response.data.data.before
-                })
-            }
-            window.scroll(0,0)
-        }
-      },
-    created () {
-      axios
-        .get(`https://www.reddit.com/r/${this.subreddit}.json?&count=0&limit=${this.limit}&raw_json=1`)
-        .then(response => {
-          this.count = 0;
+export default {
+  name: 'App',
+  components: {
+    ItemList
+  },
+  data () {
+    return {
+      posts: [],
+      after: String,
+      isLoading: Boolean,
+      count: 0,
+      before: '',
+      limit: 5,
+      subreddit: 'all'
+    }
+  },
+  methods: {
+    handleChange: function (e) {
+      this.count = 0
+      // arrow function to preserve correct reference to 'this'
+      if (e.target.classList.contains('limit')) {
+        this.limit = e.target.options[e.target.options.selectedIndex].value
+        let url = `https://www.reddit.com/r/${this.subreddit}/hot/.json?limit=${this.limit}&count=${this.count}&raw_json=1`
+        axios.get(url).then(response => {
           this.posts = response.data.data.children
           this.after = response.data.data.after
           this.before = response.data.data.before
-          console.log(this.before)
-          console.log(this.after)
-        }),
-
-        axios.interceptors.request.use(config => {
-          return config;
-        }, function(error) {
-          // Do something with request error
-          return Promise.reject(error);
-        });
-
-        axios.interceptors.response.use(response => {
-          return response;
-        }, function(error) {
-          return Promise.reject(error);
-        });
+        })
       }
+      if (e.target.classList.contains('subreddit')) {
+        if (e.target.value !== '') {
+          this.subreddit = e.target.value
+        } else {
+          this.subreddit = 'all'
+        }
+        clearTimeout(this.timeout)
+        this.timeout = setTimeout(() => {
+          this.count = this.count = 0
+          let url = `https://www.reddit.com/r/${this.subreddit}/hot/.json?limit=${this.limit}&count=${this.count}&raw_json=1`
+          axios.get(url).then(response => {
+            this.posts = response.data.data.children
+            this.after = response.data.data.after
+            this.before = response.data.data.before
+            window.scroll(0, 0)
+          })
+        }, 560)
+      }
+    },
+    getData: function (hash) {
+      if (hash == 'before') {
+        console.log(this.count)
+        console.log('CURRENT BEFORE', this.before)
+        if (!this.count <= 0) {
+          if (this.count <= 0) {
+            this.count = 0
+            console.log('zero')
+          } else {
+            this.count = this.count - parseInt(this.limit)
+            console.log(this.count)
+          }
+          let url = `https://www.reddit.com/r/${this.subreddit}/hot/.json?limit=${this.limit}&count=${this.count}&before=${this.before}&raw_json=1`
+          axios.get(url).then(response => {
+            this.posts = response.data.data.children
+            this.after = response.data.data.after
+            this.before = response.data.data.before
+          })
+        }
+      } else {
+        this.count = parseInt(this.count) + parseInt(this.limit)
+        let url = `https://www.reddit.com/r/${this.subreddit}/hot/.json?limit=${this.limit}&count=${this.count}&after=${this.after}&raw_json=1`
+        axios.get(url).then(response => {
+          this.posts = response.data.data.children
+          this.after = response.data.data.after
+          this.before = response.data.data.before
+        })
+      }
+      window.scroll(0, 0)
+    }
+  },
+  created () {
+    axios
+      .get(`https://www.reddit.com/r/${this.subreddit}.json?&count=0&limit=${this.limit}&raw_json=1`)
+      .then(response => {
+        this.count = 0
+        this.posts = response.data.data.children
+        this.after = response.data.data.after
+        this.before = response.data.data.before
+        console.log(this.before)
+        console.log(this.after)
+      }),
+
+    axios.interceptors.request.use(config => {
+      return config
+    }, function (error) {
+      // Do something with request error
+      return Promise.reject(error)
+    })
+
+    axios.interceptors.response.use(response => {
+      return response
+    }, function (error) {
+      return Promise.reject(error)
+    })
+  }
 }
 </script>
 
@@ -179,16 +174,16 @@
   ::-webkit-scrollbar-track {
     background: #141422;
   }
-  
+
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: $baby-blue; 
+    background: $baby-blue;
     border-radius: 3px;
   }
 
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: $baby-blue; 
+    background: $baby-blue;
     opacity: 0.9;
   }
 

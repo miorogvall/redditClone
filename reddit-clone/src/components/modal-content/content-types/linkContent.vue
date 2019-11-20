@@ -1,30 +1,25 @@
 <template>
     <div class="link" v-if="data.preview.reddit_video_preview !== undefined && data.preview.reddit_video_preview.fallback_url !== undefined">
         <video
-        class="video" 
-        controls 
-        autoplay="true" 
+        class="video"
+        controls
+        autoplay="true"
         loop="loop">
             <source :src="data.preview.reddit_video_preview.fallback_url">
         </video>
     </div>
 </template>
-      <script>
-    
-      import axios from 'axios'
-      export default {
-        name: 'postContent',
-        props: {
-            data: Object
-        },
-        methods: {
-        },
-        computed: {
-      }
-    }
-    
-    </script>
-    
+<script>
+
+export default {
+  name: 'postContent',
+  props: {
+    data: Object
+  }
+}
+
+</script>
+
       <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 

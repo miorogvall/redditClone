@@ -20,49 +20,25 @@
                         </div>
                     </div>
                 </div>
-<!--                 <div v-if="children.kind == 'more' && children !== undefined" class="border">
-                        <button v-if="replyTree.data.children[0].data.replies !== '' && replyTree.data.children[0].kind !== 'more'" v-on:click="moreComments(replyTree.data.children[0])" class="see-replies" v-show="!interactedWith">More replies <b>[+]</b></button>
-                        <div v-if="interactedWith && replies" class="attach-comments border">
-                            <div class="reply-fetched" v-for="fetchedReply in replies">
-                                <div class="author-and-upvotes">
-                                    {{fetchedReply.author}}
-                                    <div class="text" v-html="fetchedReply.body"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
             </div>
     </div>
       </template>
-      <script>
+<script>
 
-        import axios from 'axios'
+export default {
+  props: ['replyTree', 'replies', 'depth'],
+  name: 'tree-comments',
+  data () {
+    return {
+      interactedWith: false
+    }
+  }
+}
 
-        export default {
-          props: ['replyTree', 'replies', 'depth'],
-          name: 'tree-comments',
-          methods: {
-/*                 moreComments: function(comment) { 
-                    // using external proxy for get, see no danger since it removes the need for a proxy and backend server
-                    // and its a simple get request. NEVER do this with sensitive data :)
-                let url = `https://api.pushshift.io/reddit/comment/search?raw_json=1&parent_id=${comment.data.name}&limit=500`
-                axios.get(url).then(response => {
-                    this.interactedWith = !this.interactedWith
-                    this.replies = response.data.data
-                })
-                } */
-          },
-          data() {
-            return {
-                interactedWith: false,
-            }
-        }
-      }
-        
-      </script>
+</script>
 
 <style scoped lang="scss">
-          
+
         @import "../scss/_variables.scss";
 
         .comment > .tree-comments {
@@ -79,13 +55,13 @@
         }
 
         .tree-comments {
-           
+
            .border {
                 border-left: 1.5px solid $thread-color;
                 padding-left: 13px;
                 margin-left: 10px;
            }
-           
+
            .noBorder {
                 border-left: none !important;
                 padding-left: 0 !important;

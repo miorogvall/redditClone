@@ -17,7 +17,7 @@
         <postModal :dataRecieved="fromChild"/>
     </div>
 </template>
-  <script>
+<script>
 
 import Item from '@/components/Item.vue'
 import postModal from '@/components/postModal.vue'
@@ -29,7 +29,7 @@ export default {
     postModal
   },
   props: {
-    posts: Array,
+    posts: Array
   },
   data () {
     return {
@@ -40,21 +40,21 @@ export default {
     onChildClick (response) {
       console.log(response)
       this.fromChild = response
-      return response;
+      return response
     },
     setImage (imageSet) {
       let finalImage
-      if(imageSet !== undefined) {
+      if (imageSet !== undefined) {
         finalImage = imageSet.images[0].source.url
-        finalImage = finalImage.replace(/&amp;/g, '&');
+        finalImage = finalImage.replace(/&amp;/g, '&')
       } else {
         finalImage = require('../static/placeholder.png')
       }
       return finalImage
-    },
+    }
   }
 }
-  </script>
+</script>
 
   <!-- Add "scoped" attribute to limit CSS to this component only -->
   <style scoped lang="scss">
