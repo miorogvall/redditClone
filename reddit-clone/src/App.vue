@@ -22,7 +22,7 @@
             <span class="arrow-down"><i class="fas fa-chevron-down"></i></span>
             <select class="limit" @change="handleChange" name="limit">
               <option value="5">5</option>
-              <option value="10">10</option>
+              <option selected value="10">10</option>
               <option value="25">25</option>
             </select>
         </div>
@@ -61,7 +61,7 @@ export default {
       isLoading: true,
       count: 0,
       before: '',
-      limit: 5,
+      limit: 10,
       subreddit: 'all'
     }
   },
