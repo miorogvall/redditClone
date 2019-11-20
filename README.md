@@ -1,7 +1,6 @@
 # redditClone
 This is a reddit clone for viewing subreddits built in Vue
 
-
 # Steps to get it running:
 
 You may start at step 3 if you have git and node installed on your machine.
@@ -22,3 +21,4 @@ The app was build and tested on Chrome and Windows 10 OS. I recommend using this
 1. Typing a subreddit in search will reload the page after you've stopped typing.<br>
 2. Changing the amount of posts visible will reload the feed.<br>
 3. Getting the previous page will be grayed out if you are on the first page already<br>
+4. some videos can not be served without a web-server(localhost will be denied due to CORS), in that case an image is loaded, or nothing at all.
