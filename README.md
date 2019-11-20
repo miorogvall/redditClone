@@ -25,4 +25,4 @@ The app was build and tested on Chrome and Windows 10 OS. I recommend using this
 4. some videos can not be served(localhost will be denied due to CORS), in that case an image is loaded, or nothing at all.
 
 # About
-It was build in vue using sass and components. css for the components is in the component file.
+It was build in Vue using sass and components. sass for the components is in each component file. Each component file consists of the template, script and style tag for that individual component.
