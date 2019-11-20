@@ -26,27 +26,22 @@
     </script>
     
       <!-- Add "scoped" attribute to limit CSS to this component only -->
-      <style scoped lang="scss">
-    
-            $black-color: #272727;
-            $white: #fdfdfd;
-            $main-color: #ffe06d;
-            $secondary-color: #20203c;
-            $faded-red: #a23354;
-            $baby-blue: #c8d8f5;
+<style scoped lang="scss">
 
-            .video  {
-                    margin-top: 80px;
-                    height: 400px;
-                    outline: none;
-                    margin-top: 70px;
-                    margin-bottom: 70px;
-                }
+    @import "../../../scss/_variables.scss";
 
-            .link {
-                color: $white;
-                margin-top: 70px;
-                margin-bottom: 70px;
-            }
-    
-    </style>
+    .video  {
+            margin-top: 80px;
+            height: 400px;
+            outline: none;
+            margin-top: 70px;
+            margin-bottom: 70px;
+        }
+
+    .link {
+        color: $white;
+        margin-top: 70px;
+        margin-bottom: 70px;
+    }
+
+</style>

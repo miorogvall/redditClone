@@ -84,12 +84,7 @@
     
       <style scoped lang="scss">
           
-        $black-color: #272727;
-        $white: #fdfdfd;
-        $main-color: #ffe06d;
-        $secondary-color: #20203c;
-        $faded-red: #a23354;
-        $baby-blue: #c8d8f5;
+          @import "../scss/_variables.scss";
 
           .overlay{
               position: fixed;

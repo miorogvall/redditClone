@@ -82,115 +82,110 @@
 </script>
 
   <!-- Add "scoped" attribute to limit CSS to this component only -->
-  <style scoped lang="scss">
+<style scoped lang="scss">
 
-        $black-color: #272727;
-        $white: #fdfdfd;
-        $main-color: #ffe06d;
-        $secondary-color: #20203c;
-        $faded-red: #a23354;
-        $baby-blue: #c8d8f5;
+    @import "../scss/_variables.scss";
 
-.item {
-    width: 800px;
-    margin: auto;
-    display: flex;
-    margin-bottom: 50px;
-    margin-top: 40px;
-    transition: all 0.1s ease;
-    cursor: pointer;
-    position: relative;
+    .item {
+        width: 800px;
+        margin: auto;
+        display: flex;
+        margin-bottom: 50px;
+        margin-top: 40px;
+        transition: all 0.1s ease;
+        cursor: pointer;
+        position: relative;
 
-    &:hover {
-        -webkit-transform: scale(0.93);
-        -ms-transform: scale(0.93);
-        transform: scale(0.93);
-        opacity: 0.75;
-    }
-
-    .image-div {
-        width: 250px;
-        height: 170px;
-
-        .item-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        &:hover {
+            -webkit-transform: scale(0.93);
+            -ms-transform: scale(0.93);
+            transform: scale(0.93);
+            opacity: 0.75;
         }
 
-    }
+        .image-div {
+            width: 250px;
+            height: 170px;
 
-    .item-title {
-        width: 550px;
-        margin-top: 5px;
-        margin-left: -25px;
-        max-height: 86px;
-        overflow: hidden;
-        padding-left: 10px;
+            .item-image {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
 
-        h1 {
-            text-align: left;
+        }
 
-            span {
-                color: $secondary-color;
-                background-color: $main-color;
-                font-family: "Montserrat";
-                text-transform: capitalize;
-                font-style: italic;
-                font-size: 20px;
-                line-height: 2;
-                padding: 5px 0px;
-                display: inline;
-                box-shadow: 10px 0 0 $main-color, -10px 0 0 $main-color;
+        .item-title {
+            width: 550px;
+            margin-top: 5px;
+            margin-left: -25px;
+            max-height: 86px;
+            overflow: hidden;
+            padding-left: 10px;
+
+            h1 {
+                text-align: left;
+
+                span {
+                    color: $secondary-color;
+                    background-color: $main-color;
+                    font-family: "Montserrat";
+                    text-transform: capitalize;
+                    font-style: italic;
+                    font-size: 20px;
+                    line-height: 2;
+                    padding: 5px 0px;
+                    display: inline;
+                    box-shadow: 10px 0 0 $main-color, -10px 0 0 $main-color;
+                }
             }
         }
-    }
 
-    .item-upvotes {
-        width: 550px;
-        margin-top: -6px;
-        margin-left: -25px;
-        max-height: 39px;
-        overflow: hidden;
-        padding-left: 10px;
+        .item-upvotes {
+            width: 550px;
+            margin-top: -6px;
+            margin-left: -25px;
+            max-height: 39px;
+            overflow: hidden;
+            padding-left: 10px;
 
-        h1 {
-            text-align: left;
+            h1 {
+                text-align: left;
 
-            span {
-                color: $baby-blue;
-                background-color: $faded-red;
-                font-family: "Montserrat";
-                text-transform: capitalize;
-                font-style: italic;
-                font-size: 11px;
-                line-height: 2;
-                padding: 5px 0px;
-                display: inline;
-                box-shadow: 10px 0 0 $faded-red, -10px 0 0 $faded-red;
-                font-weight: 600;
+                span {
+                    color: $baby-blue;
+                    background-color: $faded-red;
+                    font-family: "Montserrat";
+                    text-transform: capitalize;
+                    font-style: italic;
+                    font-size: 11px;
+                    line-height: 2;
+                    padding: 5px 0px;
+                    display: inline;
+                    box-shadow: 10px 0 0 $faded-red, -10px 0 0 $faded-red;
+                    font-weight: 600;
+                }
             }
         }
-    }
 
-    .item-author {
-        text-align: left;
-        margin-top: 10px;
-        font-size: 12px;
-        margin-left: 30px;
-        font-weight: 600;
-        color: $baby-blue;
-        
+        .item-author {
+            text-align: left;
+            margin-top: 10px;
+            font-size: 12px;
+            margin-left: 30px;
+            font-weight: 600;
+            color: $baby-blue;
+            
 
-        span {
-            border-bottom: 2px solid $faded-red;
+            span {
+                border-bottom: 2px solid $faded-red;
+            }
+        }
+
+        .item-info {
+            position: absolute;
+            bottom: 0;
+            left: 250px;
         }
     }
-
-    .item-info {
-        position: absolute;
-        bottom: 0;
-        left: 250px;
-    }
-}
 </style>

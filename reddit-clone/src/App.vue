@@ -154,18 +154,12 @@
 
 <style lang="scss">
 
+@import "./scss/_variables.scss";
+
   * {
     box-sizing: border-box;
   }
-
-  $black-color: #272727;
-  $white: #fdfdfd;
-  $main-color: #ffe06d;
-  $secondary-color: #20203c;
-  $faded-red: #a23354;
-  $baby-blue: #c8d8f5;
-
-/* i love the overwatch font... */
+  /* could not find this font as a file */
   @font-face {
   font-family: overwatch;
   src: url(https://us.battle.net/forums/static/fonts/f014015d/f014015d.woff);

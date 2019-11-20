@@ -24,94 +24,85 @@
     </div>
 
 </template>
-      <script>
+<script>
 
-      import mediaContent from './content-types/mediaContent.vue'
-      import linkContent from './content-types/linkContent.vue'
-      import imageContent from './content-types/imageContent.vue'
-      import videoContent from './content-types/videoContent.vue'
-      
-      import axios from 'axios'
-      export default {
-        name: 'postContent',
-        components: {
-                mediaContent,
-                linkContent,
-                videoContent,
-                imageContent
-            },
-        props: {
-            singlePost: Object,
-            postType: String
-        },
-        methods: {
-        },
-        computed: {
-      }
-    }
+  import mediaContent from './content-types/mediaContent.vue'
+  import linkContent from './content-types/linkContent.vue'
+  import imageContent from './content-types/imageContent.vue'
+  import videoContent from './content-types/videoContent.vue'
+
+  import axios from 'axios'
+  export default {
+    name: 'postContent',
+    components: {
+      mediaContent,
+      linkContent,
+      videoContent,
+      imageContent
+      },
+    props: {
+      singlePost: Object,
+      postType: String
+    },
+  }
+
+</script>
     
-    </script>
-    
-      <!-- Add "scoped" attribute to limit CSS to this component only -->
-      <style scoped lang="scss">
-    
-            $black-color: #272727;
-            $white: #fdfdfd;
-            $main-color: #ffe06d;
-            $secondary-color: #20203c;
-            $faded-red: #a23354;
-            $baby-blue: #c8d8f5;
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="scss">
 
-            .item-text {
-                  text-align: left;
-                  max-width: 660px;
-                  width: 90%;
-                  margin: auto;
-                  margin-top: 50px;
-                  display: block;
-                  word-break: break-word;
-                  color: $baby-blue;
-                  line-height: 23px;
-                  margin-top: 70px;
-                  margin-bottom: 70px;
+  @import "../../scss/_variables.scss";
 
-                  /deep/ p {
-                      margin-top: 10px;
-                  }
-                  /deep/ h1 {
-                      margin-top: 10px;
-                      margin-bottom: 20px;
-                  }
+      .item-text {
+            text-align: left;
+            max-width: 660px;
+            width: 90%;
+            margin: auto;
+            margin-top: 50px;
+            display: block;
+            word-break: break-word;
+            color: $baby-blue;
+            line-height: 23px;
+            margin-top: 70px;
+            margin-bottom: 70px;
 
-                  /deep/ h2 {
-                      margin-top: 10px;
-                  }
+            /deep/ p {
+                margin-top: 10px;
+            }
+            /deep/ h1 {
+                margin-top: 10px;
+                margin-bottom: 20px;
+            }
 
-                  /deep/ h3 {
-                      margin-top: 10px;
-                  }
+            /deep/ h2 {
+                margin-top: 10px;
+            }
 
-                  /deep/ h4 {
-                      margin-top: 10px;
-                  }
+            /deep/ h3 {
+                margin-top: 10px;
+            }
 
-                  /deep/ h5 {
-                      margin-top: 10px;
-                  }
+            /deep/ h4 {
+                margin-top: 10px;
+            }
 
-                  /deep/ h6 {
-                      margin-top: 10px;
-                  }
+            /deep/ h5 {
+                margin-top: 10px;
+            }
 
-                  /deep/ a {
-                      margin-top: 10px;
-                  }
+            /deep/ h6 {
+                margin-top: 10px;
+            }
 
-                  /deep/ hr {
-                      margin-top: 18px;
-                      margin-bottom: 18px;
-                      display: block;
-                  }
-                }
-    
-    </style>
+            /deep/ a {
+                margin-top: 10px;
+            }
+
+            /deep/ hr {
+                margin-top: 18px;
+                margin-bottom: 18px;
+                display: block;
+            }
+          }
+
+</style>

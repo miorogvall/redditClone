@@ -58,8 +58,11 @@ export default {
 
   <!-- Add "scoped" attribute to limit CSS to this component only -->
   <style scoped lang="scss">
-.item-list {
-    padding: 50px 20px;
-    padding-top: 150px;
-}
+
+    @import "../scss/_variables.scss";
+
+    .item-list {
+        padding: 50px 20px;
+        padding-top: 150px;
+    }
   </style>
