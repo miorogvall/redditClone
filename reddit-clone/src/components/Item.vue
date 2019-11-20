@@ -1,15 +1,17 @@
 <template>
     <div class="item" :data-id="id" @click="emitToParent" ref="chosenItem" v-model="childMessage">
-        <div class="image-div">
-            <img class="item-image" v-bind:src="this.thumbnail">
-        </div>
-        <div>
-            <div class="item-title"><h1><span>{{this.title}}</span></h1>
+        <div class="hover-fix">
+            <div class="image-div">
+                <img class="item-image" v-bind:src="this.thumbnail">
             </div>
-            <div class="item-upvotes"><h1><span>{{shortenUpvotesFormat}} updoots</span></h1>
-            </div>
-            <div class="item-info">
-                <div class="item-author">posted by <span class="author">{{this.author}}</span> at <span class="author">{{convertFromUnix}}</span> with <span class="author">{{this.commentNumber}} comments</span></div>
+            <div>
+                <div class="item-title"><h1><span>{{this.title}}</span></h1>
+                </div>
+                <div class="item-upvotes"><h1><span>{{shortenUpvotesFormat}} updoots</span></h1>
+                </div>
+                <div class="item-info">
+                    <div class="item-author">posted by <span class="author">{{this.author}}</span> at <span class="author">{{convertFromUnix}}</span> with <span class="author">{{this.commentNumber}} comments</span></div>
+                </div>
             </div>
         </div>
     </div>
@@ -96,10 +98,18 @@ export default {
         position: relative;
 
         &:hover {
-            -webkit-transform: scale(0.93);
-            -ms-transform: scale(0.93);
-            transform: scale(0.93);
-            opacity: 0.75;
+
+            .hover-fix {
+                -webkit-transform: scale(0.93);
+                -ms-transform: scale(0.93);
+                transform: scale(0.93);
+                opacity: 0.75;
+            }
+        }
+
+        .hover-fix {
+            display: flex;
+            transition: all 0.1s ease;
         }
 
         .image-div {
