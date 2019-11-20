@@ -15,36 +15,9 @@
                             </a>
                         </div>
                     </div>
-                  <div 
-                    class="item-text" 
-                    v-if="this.dataRecieved.data[0].data.children[0].data.selftext_html !== 'null' && this.dataRecieved.data[0].data.children[0].data.selftext.length > 0">
-                    <div v-html="dataRecieved.data[0].data.children[0].data.selftext_html"></div>
 
-                  </div>
-                    <div
-                        class="media"
-                        v-if="this.dataRecieved.data[0].data.children[0].data.post_hint == 'rich:video' && this.dataRecieved.data[0].data.children[0].data.media.oembed.html"
-                        v-html="this.dataRecieved.data[0].data.children[0].data.media.oembed.html">
-                    </div>
-                   <div v-if="this.dataRecieved.data[0].data.children[0].data.post_hint == 'image' && this.dataRecieved.data[0].data.children[0].data.url !== undefined">
-                        <img class="image" v-bind:src="dataRecieved.data[0].data.children[0].data.url">
-                    </div>
-                    <div v-if="this.dataRecieved.data[0].data.children[0].data.post_hint == 'hosted:video'">
-                        <video class="video" controls autoplay="true" loop="loop">
-                            <source :src="dataRecieved.data[0].data.children[0].data.media.reddit_video.fallback_url">
-                        </video>
-                    </div>
-                    <div 
-                    v-if="this.dataRecieved.data[0].data.children[0].data.post_hint == 'link' && this.dataRecieved.data[0].data.children[0].data.preview.reddit_video_preview"
-                    class="link">
-                        <video
-                        class="video" 
-                        controls 
-                        autoplay="true" 
-                        loop="loop" >
-                            <source :src="this.dataRecieved.data[0].data.children[0].data.preview.reddit_video_preview.fallback_url">
-                        </video>
-                    </div>
+                  <postContent :singlePost="this.dataRecieved.data[0].data.children[0]" :postType="this.dataRecieved.data[0].data.children[0].data.post_hint"/>
+
                     <div class="comments">
                         <div class="comments-header">comments below</div>
                         <ul>
@@ -70,11 +43,13 @@
      
      <script>
          import TreeComments from './TreeComments.vue'
+         import postContent from './modal-content/postContent.vue'
 
         export default {
             name: 'postModal',
             components: {
-                TreeComments
+                TreeComments,
+                postContent
             },
             props: {
                 dataRecieved: Object,
@@ -224,85 +199,6 @@
                         font-size: 25px;
                         border-bottom: 2px solid #a23354;
                     }
-                }
-
-                .item-text {
-                    text-align: left;
-                    max-width: 660px;
-                    width: 90%;
-                    margin: auto;
-                    margin-top: 50px;
-                    display: block;
-                    word-break: break-word;
-                    color: $baby-blue;
-                    line-height: 23px;
-                    margin-top: 70px;
-                    margin-bottom: 70px;
-
-                    /deep/ p {
-                        margin-top: 10px;
-                    }
-                    /deep/ h1 {
-                        margin-top: 10px;
-                        margin-bottom: 20px;
-                    }
-
-                    /deep/ h2 {
-                        margin-top: 10px;
-                    }
-
-                    /deep/ h3 {
-                        margin-top: 10px;
-                    }
-
-                    /deep/ h4 {
-                        margin-top: 10px;
-                    }
-
-                    /deep/ h5 {
-                        margin-top: 10px;
-                    }
-
-                    /deep/ h6 {
-                        margin-top: 10px;
-                    }
-
-                    /deep/ a {
-                        margin-top: 10px;
-                    }
-
-                    /deep/ hr {
-                        margin-top: 18px;
-                        margin-bottom: 18px;
-                        display: block;
-                    }
-                }
-
-                .media {
-                    margin-top: 70px;
-                    margin-bottom: 70px;
-                }
-                .image {
-                    margin: auto;
-                    margin-top: 80px;
-                    max-width: 700px;
-                    max-height: 400px;
-                    width: auto;
-                    margin-top: 70px;
-                    margin-bottom: 70px;
-                }
-                .video  {
-                    margin-top: 80px;
-                    height: 400px;
-                    outline: none;
-                    margin-top: 70px;
-                    margin-bottom: 70px;
-                }
-
-                .link {
-                    color: $white;
-                    margin-top: 70px;
-                    margin-bottom: 70px;
                 }
                 .comments {
                     width: 100%;

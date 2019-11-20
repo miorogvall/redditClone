@@ -87,6 +87,7 @@
                   this.posts = response.data.data.children
                   this.after = response.data.data.after
                   this.before = response.data.data.before
+                  window.scroll(0,0)
                 })
           }, 560);
         }

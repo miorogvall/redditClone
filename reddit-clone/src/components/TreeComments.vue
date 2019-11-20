@@ -42,15 +42,15 @@
           props: ['replyTree', 'replies', 'depth'],
           name: 'tree-comments',
           methods: {
-              moreComments: function(comment) { 
-                  // using external proxy for get, see no danger since it removes the need for a proxy and backend server
-                  // and its a simple get request. NEVER do this with sensitive data :)
+/*                 moreComments: function(comment) { 
+                    // using external proxy for get, see no danger since it removes the need for a proxy and backend server
+                    // and its a simple get request. NEVER do this with sensitive data :)
                 let url = `https://api.pushshift.io/reddit/comment/search?raw_json=1&parent_id=${comment.data.name}&limit=500`
                 axios.get(url).then(response => {
                     this.interactedWith = !this.interactedWith
                     this.replies = response.data.data
                 })
-              }
+                } */
           },
           data() {
             return {
