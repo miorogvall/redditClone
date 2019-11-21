@@ -1,5 +1,5 @@
 <template>
-        <div class="media" v-html="data.media.oembed.html">
+        <div class="media" v-html="dataPost.media.oembed.html">
     </div>
 </template>
 <script>
@@ -7,7 +7,7 @@
 export default {
   name: 'mediaContent',
   props: {
-    data: Object
+    dataPost: Object
   }
 }
 

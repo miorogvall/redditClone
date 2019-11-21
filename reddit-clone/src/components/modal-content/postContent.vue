@@ -6,20 +6,19 @@
         <div v-html="singlePost.data.selftext_html"></div>
       </div>
       <div v-if="postType == 'image' && singlePost.data.url !== undefined">
-        <imageContent :data="singlePost.data"/>
+        <imageContent :dataPost="singlePost.data"/>
       </div>
 
       <div v-if="postType == 'link'">
-        <linkContent :data="singlePost.data"/>
-        xx
+        <linkContent :dataPost="singlePost.data"/>
       </div>
 
       <div v-if="postType == 'rich:video' && singlePost.data.media.oembed.html">
-        <mediaContent :data="singlePost.data"/>
+        <mediaContent :dataPost="singlePost.data"/>
       </div>
 
       <div v-if="postType == 'hosted:video'">
-        <videoContent :data="singlePost.data"/>
+        <videoContent :dataPost="singlePost.data"/>
       </div>
 
     </div>

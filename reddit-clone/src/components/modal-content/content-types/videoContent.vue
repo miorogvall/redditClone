@@ -1,7 +1,6 @@
 <template>
     <div>
-      <video class="video" controls autoplay="true" loop="loop">
-          <source :src="data.media.reddit_video.fallback_url">
+      <video class="video" controls autoplay="true" loop="loop" :src="dataPost.media.reddit_video.fallback_url">
       </video>
     </div>
 </template>
@@ -10,7 +9,7 @@
 export default {
   name: 'videoContent',
   props: {
-    data: Object
+    dataPost: Object
   }
 }
 

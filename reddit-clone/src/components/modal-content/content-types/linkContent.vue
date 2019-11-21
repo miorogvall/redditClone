@@ -1,17 +1,17 @@
 <template>
     <div>
-        <div class="link" v-if="data.preview.reddit_video_preview !== undefined && data.preview.reddit_video_preview.fallback_url !== undefined">
+        <div class="link" v-if="dataPost.preview.reddit_video_preview !== undefined && dataPost.preview.reddit_video_preview.fallback_url !== undefined">
             <video
             class="video"
             controls
             autoplay="true"
-            loop="loop">
-                <source :src="data.preview.reddit_video_preview.fallback_url">
+            loop="loop"
+            :src="dataPost.preview.reddit_video_preview.fallback_url">
             </video>
             
         </div>
-        <div class="link" v-if="data.preview.images[0].source.url !== undefined">
-            <img class="image" :src="data.preview.images[0].source.url">
+        <div class="link" v-if="dataPost.preview.images[0].source.url !== undefined && dataPost.preview.reddit_video_preview == undefined">
+            <img class="image" :src="dataPost.preview.images[0].source.url">
         </div>
     </div>
 </template>
@@ -20,7 +20,7 @@
 export default {
   name: 'postContent',
   props: {
-    data: Object
+    dataPost: Object
   }
 }
 

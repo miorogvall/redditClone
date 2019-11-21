@@ -1,6 +1,6 @@
 <template>
     <div>
-        <img class="image" v-bind:src="data.url">
+        <img class="image" v-bind:src="dataPost.url">
     </div>
 </template>
 <script>
@@ -8,7 +8,7 @@
 export default {
   name: 'imageContent',
   props: {
-    data: Object
+    dataPost: Object
   }
 }
 
