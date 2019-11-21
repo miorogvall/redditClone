@@ -329,7 +329,7 @@ p, h1, h2, h3, h4, h5, h6 {
     height: 100%;
     width: 100%;
     background: #1b1b23;
-    z-index: 9999999999;
+    z-index: 99999999;
     cursor: wait;
     display: flex;
     align-items: center;
