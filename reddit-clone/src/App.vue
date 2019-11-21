@@ -93,7 +93,7 @@ export default {
             this.after = response.data.data.after
             this.before = response.data.data.before
           })
-        }, 560)
+        }, 800)
       }
     },
     getData: function (hash) {
