@@ -14,6 +14,7 @@ You may start at step 3 if you have git and node installed on your machine.
 6. switch branch to `bf-showcase`
 7. `npm install` in the reddit-clone folder
 8. run `npm run serve` inside the reddit-clone folder
+9. output is served on http://localhost:8080/ usually, check your terminal otherwise
 
 # Recommended browser
 The app was build and tested on Chrome and Windows 10 OS. I recommend using this to view the app since i didnt have so much time adding browser support.
